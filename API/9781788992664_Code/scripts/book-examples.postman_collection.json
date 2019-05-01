@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "6d269859-fb5d-569b-5ea9-37c5f6b3740c",
+		"name": "book-examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "3192d9cb-4029-4672-8017-85d3ed781040",
+			"name": "RESTful-API",
+			"item": [
+				{
+					"_postman_id": "0c8af7ad-78e1-4866-b508-0d1c854ea8cb",
+					"name": "REST-API-example-1- GET",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:9090/investors/invr_1/stocks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"investors",
+								"invr_1",
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "b4d83cb7-fbce-4f62-a4f0-95fdebc2ea13",
+					"name": "REST-API-Example-2-POST-NewStock",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"symbol\": \"EXc\",\n    \"numberOfSharesHeld\": 100,\n    \"tickerPrice\": 19.9\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9090/investors/invr_1/stocks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"investors",
+								"invr_1",
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "f5528f17-d0c0-4019-91f5-15ddba44f531",
+					"name": "REST-API-Example-3-DEL-Stock",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://localhost:9090/investors/invr_1/stocks/exc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"investors",
+								"invr_1",
+								"stocks",
+								"exc"
+							]
+						},
+						"description": "delete a stock"
+					},
+					"response": []
+				},
+				{
+					"_postman_id": "937eacd1-5d78-4f6f-b341-fe1c9e45dd83",
+					"name": "REST-API-Example-2-PUT-Stock",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"symbol\": \"EXc\",\n    \"numberOfSharesHeld\": 125,\n    \"tickerPrice\": 19.9\n}"
+						},
+						"url": {
+							"raw": "http://localhost:9090/investors/invr_1/stocks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"investors",
+								"invr_1",
+								"stocks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

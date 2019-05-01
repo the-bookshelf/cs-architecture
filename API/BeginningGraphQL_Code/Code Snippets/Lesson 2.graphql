@@ -1,0 +1,372 @@
+// Topic A: Real-Time Query Processing
+// Subtopic: Configuring the Server to Use WebSocket
+
+$ yarn add subscriptions-transport-ws # Install the WebSocket server package
+...
+const { execute, subscribe } = require('graphql');
+const { SubscriptionServer } = require('subscriptions-transport-ws');
+const { createServer } = require('http');
+const PORT = 3500;
+const app = express();
+
+// The GraphQL endpoint
+app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
+
+// GraphiQL, a visual editor for queries
+app.use('/graphiql', graphiqlExpress({
+ endpointURL: '/graphql',
+// Include a Websocket endpoint for GraphiQL
+ subscriptionsEndpoint: `ws://localhost:${PORT}/subscriptions`
+}));
+
+var ws = createServer(app); // Wrap express app inside http
+ws.listen(PORT, ()=> {
+ console.log("Server Running on Port:", PORT);
+// Create a Subscription server that uses the same http server. It creates a // WebSocket connection on top of the existing http server.
+ new SubscriptionServer({
+   execute,
+   subscribe,
+   schema
+ }, {
+   server: ws,
+   path: '/subscriptions',
+ });
+});
+
+
+
+
+
+// Topic B: Other Community Tools
+// Subtopic: graphql-yoga
+// Exercise: Creating a server using graphql-yoga
+// Step 2
+
+const { GraphQLServer } = require('graphql-yoga');
+var records = [];
+/* Create a GraphQL schema */
+const typeDefs = `
+ type Query {
+   fetchRecords: [String]
+ }
+ type Mutation {
+   createRecord(recordData: String!): String!
+   updateRecord(recordIndex: Int!, recordName: String!): String
+ }
+`;
+/* Implement resolvers for the GraphQL schema operations */
+const resolvers = {
+  Query: {
+    fetchRecords: () => records
+  },
+  Mutation: {
+   createRecord: (_, { recordData }) => {
+     records.push(recordData);
+     return `New Record Created: ${recordData}`;
+   },
+    updateRecord: (_, { recordIndex, recordName }) => {
+      if (records[+recordIndex] === undefined) {
+        throw Error(`Record Index Does not Exist`);
+      }
+      records[+recordIndex] = recordName;
+      return `Record Updated to: ${records[recordIndex]}`;
+    }
+  }
+};
+/* Create a GraphQL server using GraphQLServer */
+const server = new GraphQLServer({ typeDefs, resolvers });
+server.start(() => console.log('Server is running on localhost:4000'));
+
+
+
+
+
+
+// Topic B: Other Community Tools
+// Subtopic: Creating a Graphcool Framework Application
+
+
+type User @model {
+ id: ID! @isUnique
+ createdAt: DateTime!
+ updatedAt: DateTime!
+ name: String
+ dateOfBirth: DateTime
+ # declare relations between models
+ books: [Book!]! @relation(name: "UserBooks")
+}
+# Create a model for user’s books
+type Book @model {
+ id: ID! @isUnique
+ createdAt: DateTime! 
+ updatedAt: DateTime!
+ title: String!
+ description: String!
+ read: Boolean! @defaultValue(value: false)
+ # Every relation also required a back-relation (to determine 1:1, 1:n or n:m)
+ owner: User! @relation(name: "UserBooks")
+}
+
+
+
+
+// Topic B: Other Community Tools
+// Subtopic: Permission Management
+
+...
+permissions:
+ - operation: "User.create"
+ - operation: "User.read"
+ - operation: "Book.create"
+   authenticated: true
+ - operation: UserBooks.connect
+   authenticated: true
+ - operation: "Book.read"
+   authenticated: true
+   query: ./permissions/book.graphql
+ - operation: "Book.update"
+   authenticated: true
+   query: ./permissions/book.graphql
+ - operation: "Book.delete"
+   authenticated: true
+   query: ./permissions/book.graphql
+...
+
+
+
+
+// Topic B: Other Community Tools
+// Subtopic: Authentication
+// No. 1
+...
+# added by email-password template: (please uncomment)
+ signup:
+   type: resolver
+   schema: src/email-password/signup.graphql
+   handler:
+     code: src/email-password/signup.ts
+ authenticate:
+   type: resolver
+   schema: src/email-password/authenticate.graphql
+   handler:
+     code: src/email-password/authenticate.ts
+ loggedInUser:
+   type: resolver
+   schema: src/email-password/loggedInUser.graphql
+   handler:
+     code: src/email-password/loggedInUser.ts
+…
+
+
+
+// Topic B: Other Community Tools
+// Subtopic: Authentication
+// No. 2
+
+
+...
+type User @model {
+ id: ID! @isUnique
+ createdAt: DateTime!
+ updatedAt: DateTime!
+ name: String
+ dateOfBirth: DateTime
+ # declare relations between models
+
+ books: [Book!]! @relation(name: "UserBooks")
+ # Merge with fields from the authorization template
+ email: String! @isUnique
+ password: String!
+}
+
+type Book @model {
+ id: ID! @isUnique
+ createdAt: DateTime!
+ updatedAt: DateTime!
+ title: String!
+ description: String!
+
+ # Every relation also required a back-relation (to determine 1:1, 1:n or n:m)
+ owner: User! @relation(name: "UserBooks")
+}
+...
+
+
+
+
+
+// Topic B: Other Community Tools
+// Subtopic: src Folder
+
+...
+const { GraphQLServer } = require('graphql-yoga')
+const { Prisma } = require('prisma-binding')
+...
+const server = new GraphQLServer({
+ typeDefs: './src/schema.graphql',
+ resolvers,
+ context: req => ({
+   ...req,
+   db: new Prisma({
+     typeDefs: 'src/generated/prisma.graphql',
+     endpoint: 'https://endpoint-url/dev', // the endpoint of the Prisma DB service
+     secret: 'mysecret123', // specified in database/prisma.yml
+     debug: true, // log all GraphQL queries & mutations
+   }),
+ }),
+})
+...
+
+
+
+
+
+// Topic B: Other Community Tools
+// Subtopic: Application Deployment
+// Exercise: Creating a Book record directly in the database section
+// Step 3
+
+File: src/schema.graphql
+// Include mutation for createBook
+...
+type Mutation {
+  	createBook(title: String!, description: String!): Book!
+}
+...
+
+File: src/index.js
+// Implement resolver for createBook mutation.
+...
+const resolvers = {
+  ...,
+  Mutation: {
+    createBook: (parent, args, context, info) => {
+      const { title, description } = args;
+      return context.db.mutation.createBook(
+        { data: { title, description } },
+        info
+      );
+    }
+  }
+}
+...
+
+
+
+
+// Topic B: Other Community Tools
+// Subtopic: Updating Schema with loginUser and signupUser methods
+
+File: src/schema.graphql
+...
+# Create a User type and AuthenticationPayload to be returned on login.
+type User {
+  id: ID!
+  name: String!
+  email: String!
+}
+type AuthenticationPayload {
+  token: String
+  user: User
+}
+
+type Mutation {
+  createBook(title: String!, description: String!): Book!
+  # Include loginUser and signUp user methods
+  signupUser(name: String!, email: String!, password: String!):User! 
+  loginUser(email: String!, password: String!): AuthenticationPayload!
+}
+
+
+// Topic B: Other Community Tools
+// Subtopic: Implementing the signupUser and loginUser resolvers
+
+$ yarn add bcryptjs jsonwebtoken
+File: src/index.js
+...
+// Import required packages
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const APP_SECRET = "super_secret123";
+...
+const resolvers = {
+...,
+Mutation: {
+    signupUser: async (parent, args, context, info) => {
+	// Encrypt user password
+      const password = await bcrypt.hash(args.password, 10);
+      const user = await context.db.mutation.createUser({
+        data: { ...args, password }
+      });
+      return user;
+    },
+    loginUser: async (parent, args, context, info) => {
+      const user = await context.db.query.user({
+        where: { email: args.email }
+      });
+      if (!user) {
+        throw new Error(`User with email: ${args.email} could not be found`);
+      }
+	// Verify the supplied user password
+      const valid = await bcrypt.compare(args.password, user.password);
+      if (!valid) {
+        throw new Error("Invalid email password combination");
+      }
+	// Include userId in the token payload
+      const token = jwt.sign({ userId: user.id }, APP_SECRET);
+      return {
+        token,
+        user
+      };
+    }
+  }
+}
+…
+
+
+
+
+
+// Topic B: Other Community Tools
+// Subtopic: Associating a User with a Book Record
+
+File: src/index.js
+...
+// Verify token and retrieve userId from token
+function retrieveUserIdFromToken(ctx) {
+  const authToken = ctx.request.get("Authorization");
+  if (authToken) {
+    const token = authToken.replace("Bearer ", "");
+    const { userId } = jwt.verify(token, APP_SECRET);
+    return userId;
+  }
+  throw new Error("Authentication Failed");
+}
+...
+const resolvers = {
+...
+  Mutation: {
+    createBook: (parent, args, context, info) => {
+      const { title, description } = args;
+
+	// Get userId
+      const userId = retrieveUserIdFromToken(context);
+      return context.db.mutation.createBook(
+        {
+          data: {
+            title,
+            Description,
+		// Include owner while creating a connection
+            owner: {
+              connect: { id: userId }
+            }
+          }
+        },
+        info
+      );
+    },
+...
+}
+…
+
+

@@ -1,0 +1,7 @@
+apiVersion: "k8s.packt.com/v1"
+kind: WeatherReport
+metadata:
+  name: amsterdam-daily
+spec:
+  city: Amsterdam
+  days: 1

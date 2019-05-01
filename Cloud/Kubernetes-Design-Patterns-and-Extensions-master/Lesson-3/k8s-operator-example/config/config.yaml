@@ -1,0 +1,3 @@
+apiVersion: k8s.packt.com/v1
+kind: WeatherReport
+projectName: k8s-operator-example

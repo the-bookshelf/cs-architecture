@@ -1,0 +1,41 @@
+{
+	"$schema": "http://json-schema.org/draft-06/schema#",
+	"id": "ServiceResponse.json",
+	"title": "Service Response",
+	"type": "object",
+	"javaType": "com.books.chapters.restfulapi.patterns.parttwo.adapter.entity.ServiceResponse",
+	"additionalProperties": false,
+	"properties": {
+		"id": {
+			"type": "string"
+		},
+		"relatedRequest": {
+			"type": "string"
+		},
+		"createdDate": {
+			"type": "string",
+			"format": "date-time"
+		},
+		"createdBy": {
+			"type": "string",
+			"description": "The user or system who created this response"
+		},
+		"statusCode": {
+			"type": "string",
+			"description": "The status code indicating service invocation is successful or not"
+		},
+		"errorMessage": {
+			"$ref": "ErrorMessage.json#"
+		},
+		"items": {
+			"type": "array",
+			"items": {
+				"$ref": "BusinessEntity.json#"
+			}
+		}
+	},
+	"required": [
+		"id",
+		"relatedRequest"
+	]
+}

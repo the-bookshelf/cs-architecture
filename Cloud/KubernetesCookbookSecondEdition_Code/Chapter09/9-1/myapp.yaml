@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+spec:
+  containers:
+  - image: busybox
+    name: application
+    args:
+      - /bin/sh
+      - -c
+      - >
+        while true; do
+        echo "$(date) INFO hello";
+        sleep 1;
+        done

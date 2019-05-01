@@ -1,0 +1,7 @@
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: client-secret1@3
+      scope: read,write
+      auto-approve-scopes: '.*'

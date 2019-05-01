@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: my-nginx2
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+      - {key: project, operator: In, values: [poc]}
+      - {key: environment, operator: In, values: [staging]}
+      - {key: tier, operator: NotIn, values: [backend,cache]}
+  template:
+    metadata:
+      labels:
+        project: poc
+        environment: staging
+        tier: frontend
+    spec:
+      containers:
+      - name: my-nginx
+        image: nginx
+        ports:
+        - containerPort: 80

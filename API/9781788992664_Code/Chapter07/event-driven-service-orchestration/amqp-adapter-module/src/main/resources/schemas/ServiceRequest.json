@@ -1,0 +1,39 @@
+{
+	"$schema": "http://json-schema.org/draft-06/schema#",
+	"id": "ServiceRequest.json",
+	"title": "Service Request",
+	"type": "object",
+	"javaType": "com.books.chapters.restfulapi.patterns.parttwo.adapter.entity.ServiceRequest",
+	"additionalProperties": false,
+	"properties": {
+		"id": {
+			"type": "string"
+		},
+		"serviceName": {
+			"type": "string"
+		},
+		"serviceAction": {
+			"type": "string"
+		},
+		"createdDate": {
+			"type": "string",
+			"format": "date-time"
+		},
+		"createdBy": {
+			"type": "string",
+			"description": "The user or system who created this request"
+		},
+		"items": {
+			"type": "array",
+			"items": {
+				"$ref": "BusinessEntity.json#"
+			}
+		}
+	},
+	"required": [
+		"id",
+		"serviceName",
+		"serviceAction",
+		"items"
+	]
+}

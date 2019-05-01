@@ -1,0 +1,6 @@
+factory_boy
+psycopg2
+schematics
+simplejson
+sqlalchemy-utils
+sqlalchemy>=1.2.0b2

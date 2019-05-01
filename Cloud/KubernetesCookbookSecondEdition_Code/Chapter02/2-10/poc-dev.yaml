@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: poc.dev.httpd
+  labels:
+    project: poc
+    environment: develop
+    tier: frontend
+spec:
+  containers:
+    - name: httpd
+      image: httpd
+      ports:
+      - containerPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: poc.dev.memcached
+  labels:
+    project: poc
+    environment: develop
+    tier: cache
+spec:
+  containers:
+    - name: memcached
+      image: memcached
+      ports:
+      - containerPort: 11211

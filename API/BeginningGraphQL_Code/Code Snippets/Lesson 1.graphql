@@ -1,0 +1,115 @@
+// Topic B: Setting Up A Simple GraphQL Application
+// Subtopic: Queries
+// Exercise: Creating a GraphQL Server
+// Step 2
+
+const authors = [
+ {
+   id: “1”,
+   info: {
+     name: “Joe Kelly”,
+     age: 32,
+     gender: “M”,
+   }
+ },
+ {
+   id: “2”,
+   info: {
+     name: “Mary Jane”,
+     age: 27,
+     gender: “F”,
+   }
+ }
+ ];
+/*
+Sample data
+This is sample authors’ data. This will be a database in a real life application
+*/
+/*
+GraphQL schema
+Represents the type of data(the input and output) and operations that can be performed on that data.
+Type Query represents the root query; the entry point for all graphql queries.
+*/
+const typeDefs = `
+type Author {
+  id: ID!
+  info: Person
+}
+type Person {
+  name: String!
+  age: Int
+  gender: String
+}
+type Query {
+ getAuthors: [Author]
+}
+`;
+
+/* 
+The resolvers
+Resolvers are functions that represent the actual implementation of the operations in the schema.
+*/
+const resolvers = {
+ Query: { getAuthors: () => authors },
+};
+
+/* 
+Tie the plain schema to resolvers to create an actual executable schema.
+*/
+const schema = makeExecutableSchema({
+ typeDefs,
+ resolvers,
+});
+const PORT = 3500;
+const app = express(); // Create an express application
+
+// The GraphQL endpoint
+app.use(‘/graphql’, bodyParser.json(), graphqlExpress({ schema }));
+
+/* 
+GraphiQL endpoint
+Presents the GraphiQL GUI in the browser. All GraphQL requests from GraphiQL are send to ‘/graphql` endpoint. The graphiqlExpress functions ensures all GraphQL requests are redirected to ‘/graphql’ 
+*/
+app.use(‘/graphiql’, graphiqlExpress({ endpointURL: ‘/graphql’ }));
+app.listen(PORT, ()=> {
+ console.log(“Server Running on Port:”, PORT);
+});
+
+
+
+
+
+
+
+// Topic B: Setting Up A Simple GraphQL Application
+// Subtopic: Updating an Author
+
+...
+type Mutation {
+ createAuthor(name: String!, gender: String!) : Author,
+ updateAuthor(id: ID!, name: String, gender: String, age: Int): Author
+}
+`;
+const resolvers = {
+...,
+Mutation: {
+   createAuthor: (obj, args) => {
+	...
+   },
+   updateAuthor: (obj, { id, name, gender, age }) => {
+     const author = authors.find(author => author.id === id);
+     if(author) {
+	 const authorIndex = authors.indexOf(author);
+       if(name) author.name = name;
+       if(gender) author.gender = gender;
+       if(age) author.age = age;
+	 authors[authorIndex] = { id, info: author };
+       return {id, info: author };
+     } else {
+       throw new Error(‘Author ID not found’); 
+     }
+   }
+ }
+}
+...
+

@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: my-update-nginx
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      run: simple-nginx
+  template:
+    metadata:
+      labels:
+        run: simple-nginx
+    spec:
+      containers:
+      - name: simple-nginx
+        image: nginx
+        ports:
+        - containerPort: 80

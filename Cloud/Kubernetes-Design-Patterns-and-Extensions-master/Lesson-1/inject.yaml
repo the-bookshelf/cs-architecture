@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: inject
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: [ "sh", "-c"]
+      args:
+      - while true; do
+          echo -en '\n';
+          echo My node name is $MY_NODE_NAME and living in namespace $MY_POD_NAMESPACE;
+          echo Pod IP is $MY_POD_IP and my service account is $MY_POD_SERVICE_ACCOUNT;
+          echo Running with the memory limit of $MY_MEM_LIMIT and request of $MY_MEM_REQUEST;
+          echo Running with the CPU limit of $MY_CPU_LIMIT and request of $MY_CPU_REQUEST;
+          sleep 10;
+        done;
+      resources:
+        requests:
+          memory: "32Mi"
+          cpu: "125m"
+        limits:
+          memory: "64Mi"
+          cpu: "250m"
+      env:
+        - name: MY_NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: MY_POD_SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.serviceAccountName
+        - name: MY_CPU_REQUEST
+          valueFrom:
+            resourceFieldRef:
+              resource: requests.cpu
+        - name: MY_CPU_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              resource: limits.cpu
+        - name: MY_MEM_REQUEST
+          valueFrom:
+            resourceFieldRef:
+              resource: requests.memory
+        - name: MY_MEM_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              resource: limits.memory

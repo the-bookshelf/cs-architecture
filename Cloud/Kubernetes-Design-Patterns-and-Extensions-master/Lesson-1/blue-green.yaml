@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: blue
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: nginx
+        version: "1.10"
+    spec:
+      containers: 
+        - name: nginx
+          image: nginx:1.10
+          ports:
+            - name: http
+              containerPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: green
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        name: nginx
+        version: "1.11"
+    spec:
+      containers: 
+        - name: nginx
+          image: nginx:1.11
+          ports:
+            - name: http
+              containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata: 
+  name: blue-green
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+  selector: 
+    name: nginx
+    version: "1.10"

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-nginx
+spec:
+  containers:
+  - name: private-nginx
+    image: 10.138.0.3:30500/my-nginx
+  imagePullSecrets:
+  - name: my-private-credential

@@ -1,0 +1,972 @@
+// Topic A: Setting up a React Client Application
+// Subtopic: Using Apollo Client
+// Exercise: Linking a React Application
+// Step 3
+
+import React, { Component } from 'react';
+import { List, ListItem } from 'material-ui/List';
+import CircularProgress from 'material-ui/CircularProgress';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+
+/* 
+Create a query to fetch a list of books using an alias books */
+const getBooksQuery =gql(`
+    query getAllBooks {
+        books: fetchAllBooks {
+           id
+            title
+            description
+        }
+    }
+`);
+
+class BooksComponent extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+       let { error, loading, books } = this.props.data;
+       if (error) return <div> An Error Occurred</div>
+       else if (loading) return <div style={ styles.loaderSection }><CircularProgress /></div>
+        else return (
+            <Card expanded>
+   <CardHeader
+     title="Books List"
+   />
+   <CardText expandable={true}>
+     <List>
+         { books.map(book=> {
+             return (<ListItem key = { book.id } primaryText = { <p> {book.title} </p>} secondaryText = { <p> { book.description } </p> } secondaryTextLines = { 2 }/>)
+         })}
+     </List>
+   </CardText>
+ </Card>
+        );
+    }
+}
+
+export const styles = {
+   loaderSection: {
+       textAlignt: "center"
+   }
+};
+
+const BooksComponentWithData = graphql(getBooksQuery)(BooksComponent);
+export default BooksComponentWithData;
+
+
+
+
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Activity A: Implementing Register and Login Functionalities
+// Step 1
+// No. 1
+
+import React, { Component } from 'react';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import { Card, CardText } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+
+class Login extends Component {
+   constructor(props) {
+      super();
+  }
+               render() { return (<div>Login</div>); }
+}
+
+class Register extends Component {
+    constructor(props) {
+       super();
+    }
+    render() { return (<div>Register</div>); }
+}
+
+export default class Authentication extends Component {
+  constructor(props) {
+    super();
+  }
+
+  render() {
+    return (
+      <div style={styles.flexContainer}>
+        <Card expanded style={styles.card}>
+          <CardText expandable={true}>
+            <Tabs>
+              <Tab label="LOGIN">
+                <Login />
+              </Tab>
+              <Tab label="REGISTER">
+                <Register />
+              </Tab>
+            </Tabs>
+          </CardText>
+        </Card>
+      </div>
+    );
+  }
+}
+
+const styles = {
+  flexContainer: {
+    display: 'flex',
+    width: '50%',
+    justifyContent: 'center',
+    margin: '0px auto'
+  },
+  card: {
+    width: '100%'
+  },
+  center: {
+    textAlign: 'center'
+  }
+};
+
+
+
+
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Activity A: Implementing Register and Login Functionalities
+// Step 1
+// No. 2
+
+
+    class Login extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      passwordError: null,
+      emailError: null,
+      email: '',
+      password: ''
+   };
+   this.updateEmail = this.updateEmail.bind(this);
+   this.updatePassword = this.updatePassword.bind(this);
+   this.loginUser = this.loginUser.bind(this);
+  }
+
+ updateEmail(_, newValue) {
+   this.setState({ email: newValue });
+ }
+
+ updatePassword(_, newValue) {
+   this.setState({ password: newValue });
+ }
+
+ loginUser() {
+   this.setState({ emailError: "", passwordError: "" });
+   if(!this.state.email) this.setState({ emailError: "Email Required" });
+   if(!this.state.password) this.setState({ passwordError: "Password Required" });
+   if(!this.state.password || !this.state.email) return;
+ }
+
+  render() {
+    return (
+      <div style={styles.center}>
+        <TextField
+          hintText="User Email"
+          floatingLabelText="User Email"
+          onChange={this.updateEmail}
+          ref="loginEmail"
+          errorText={ this.state.emailError }
+	   value = { this.state.email }
+        />
+        <br />
+        <TextField
+          type="password"
+          hintText="Password"
+          floatingLabelText="Password"
+          errorText={this.state.passwordError}
+          onChange={ this.updatePassword }
+	   value = { this.state.password }
+        />
+        <br />
+        <RaisedButton label="Login" primary={true} onClick={this.loginUser} />
+      </div>
+    );
+  }
+}
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Activity A: Implementing Register and Login Functionalities
+// Step 1
+// No. 3
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import BooksComponentWithData from '../components/BooksComponent';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+/* Import the Authentication component */
+import Authentication from '../components/Authentication';
+
+import { ApolloClient } from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from 'react-apollo';
+
+const client = new ApolloClient({
+  link: new HttpLink({ uri: 'http://localhost:4000' }),
+  cache: new InMemoryCache()
+});
+
+const AppBarComponent = () => <AppBar title="GraphQL React" />;
+
+const routes = (
+  <MuiThemeProvider>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <div>
+          <AppBarComponent />
+          <br />
+          <Switch>
+            <Route exact path="/" component={BooksComponentWithData} />
+{/* 
+   Include a route to render the Authentication component 
+*/}
+            <Route path="/login" component={Authentication} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </ApolloProvider>
+  </MuiThemeProvider>
+);
+
+export default routes;
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Activity A: Implementing Register and Login Functionalities
+// Step 1
+// No. 4
+
+class Register extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      passwordError: null,
+      emailError: null,
+     nameError: null,
+     passwordConfirmError: null,
+      name: '',
+      email: '',
+      password: '',
+      passwordConfirm: ''
+   };
+  
+   this.updateName = this.updateName.bind(this);
+   this.updateEmail = this.updateEmail.bind(this);
+   this.updatePassword = this.updatePassword.bind(this);
+   this.updatePasswordConfirmation = this.updatePasswordConfirmation.bind(this);
+   this.registerNewUser = this.registerNewUser.bind(this);
+ }
+
+ updateName(_, newValue) {
+   this.setState({ name: newValue });
+ }
+  updateEmail(_, newValue) {
+   this.setState({ email: newValue });
+ }
+
+ updatePassword(_, newValue) {
+   this.setState({ password: newValue });
+ }
+
+ updatePasswordConfirmation(_, newValue) {
+   this.setState({ passwordConfirm: newValue });
+ }
+
+ registerNewUser() {
+   this.setState({ nameError: "", emailError: "", passwordError: "", passwordConfirmError: "" });
+   if(!this.state.name) this.setState({ nameError: "Name Required" });
+   if(!this.state.email) this.setState({ emailError: "Email Required" });
+   if(!this.state.password) this.setState({ passwordError: "Password Required" });
+   if(!this.state.passwordConfirm) this.setState({ passwordConfirmError: "Password Confirmation Required" });
+   if(!this.state.name || !this.state.email || !this.state.password || !this.state.passwordConfirm) return;
+   if(this.state.password !== this.state.passwordConfirm) {
+     this.setState({ passwordError: "Password and Confirmation Password do not match" });
+     return;
+   }
+ }
+
+  render() {
+    return (
+      <div style={styles.center}>
+        <TextField
+          hintText="User Name(First + Last Name)"
+          floatingLabelText="User Name"
+          errorText={this.state.nameError}
+          onChange={ this.updateName }
+	   value = { this.state.name }
+        />
+        <br />
+        <TextField
+          hintText="Email"
+          floatingLabelText="User Email"
+          errorText={this.state.emailError}
+          onChange={ this.updateEmail }
+	   value = { this.state.email }
+        />
+        <br />
+        <TextField
+          type="password"
+          hintText="Password"
+          floatingLabelText="Password"
+          errorText={this.state.passwordError}
+          onChange={ this.updatePassword }
+	   value = { this.state.password }
+        />
+        <br />
+        <TextField
+          type="password"
+          floatingLabelText="Repeat Password"
+          errorText={this.state.passwordConfirmError}
+          onChange={ this.updatePasswordConfirmation }
+          hintText="Repeat password"
+          Value = { this.state.passwordConfirm }
+        />
+        <br />
+        <RaisedButton label="Register" primary onClick={ this.registerNewUser }/>
+      </div>
+    );
+  }
+}
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Subtopic: Implementing User Registration
+// Exercise: Implementing user registration
+// Step 2
+
+// … other imports 
+import RaisedButton from 'material-ui/RaisedButton';
+/*
+Import the required functions
+*/
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+
+class Login extends Component {
+	// … Skipped Code
+}
+
+const registerUser = gql`
+  mutation signUpUser($name: String!, $email: String!, $password: String!) {
+    user: signupUser(name: $name, email: $email, password: $password) {
+      id
+      email
+      name
+    }
+  }
+`;
+
+class Register extends Component {
+	// … skipped code
+
+registerNewUser() {
+    this.setState({ nameError: '', emailError: '', passwordError: '', passwordConfirmError: '' });
+    if (!this.state.name) this.setState({ nameError: 'Name Required' });
+    if (!this.state.email) this.setState({ emailError: 'Email Required' });
+    if (!this.state.password) this.setState({ passwordError: 'Password Required' });
+    if (!this.state.passwordConfirm) this.setState({ passwordConfirmError: 'Password Confirmation Required' });
+    if (!this.state.name || !this.state.email || !this.state.password || !this.state.passwordConfirm) return;
+    if (this.state.password !== this.state.passwordConfirm) {
+      this.setState({ passwordError: 'Password and Confirmation Password do not match' });
+      return;
+    }
+/*
+Call the signUpUser method passed in through the props to create a new user. We also reset the form on successful registration or if an error occurs.
+*/    
+this.props.signUpUser(this.state.name, this.state.email, this.state.password).then(data => {
+     console.log("User created Successfully");
+     this.setState({
+       name: "", email: "", password: "", passwordConfirm: ""
+     })
+    }).catch(error=> {
+     this.setState({
+       name: "", email: "", password: "", passwordConfirm: ""
+     })
+     console.error(error.message);
+   });
+  }
+render() {
+	//… skipped code
+}
+}
+
+/*
+Connect the Register component to GraphQL
+The component will be able to access the method signUpUser through the props.
+The "Register" component will now be connected to our GraphQL API. This component will be updated automatically when another component modifies the data in the cache.
+*/
+
+const RegisterComponentWithData = graphql(registerUser, {
+  props: ({ mutate }) => ({
+    signUpUser: (name, email, password) =>
+      mutate({
+        variables: { name, email, password }
+      })
+  })
+})(Register);
+/*
+Using the preceding graphql(...) function creates a higher order component that can execute queries and update based on the data in the Apollo store/cache. The function returns a function that enhances the component with reactive GraphQL capabilities. This is very similar to Redux's 'connect' function. 
+*/
+
+export default class Authentication extends Component {
+  // … skipped code
+  render() {
+    return (
+      <div style={styles.flexContainer}>
+        <Card expanded style={styles.card}>
+          <CardText expandable={true}>
+            <Tabs>
+              <Tab label="LOGIN">
+                <Login />
+              </Tab>
+              <Tab label="REGISTER">
+		{/*
+		Update to render the new connected component
+*/}
+                <RegisterComponentWithData />
+              </Tab>
+            </Tabs>
+          </CardText>
+        </Card>
+      </div>
+    );
+  }
+}
+
+
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Subtopic: Implementing User Login
+
+const loginUser = gql`
+ mutation login($email: String!, $password: String!) {
+   user: loginUser(email: $email, password: $password) {
+     token
+   }
+ }
+`;
+class Login extends Component {
+	// … skipped code
+loginUser() {
+   this.setState({ emailError: '', passwordError: '' });
+   if (!this.state.email) this.setState({ emailError: 'Email Required' });
+   if (!this.state.password) this.setState({ passwordError: 'Password Required' });
+   if (!this.state.password || !this.state.email) return;
+/*
+	The following makes a login request, and saves the token in local storage 
+*/
+this.props.loginUser(this.state.email,         this.state.password).then(({data})=> {
+   console.log('Logged In Successfully');
+         localStorage.setItem('authToken', data.user.token);
+          this.setState({ email: '', password: '' });
+   }).catch(err=>{
+     this.setState({ email: '', password: '' });
+     console.error('Error:', err.message);
+   });
+ }
+
+render() { / *...skipped code ...*/}
+}
+/* 
+Connect the mutation with the Login component. The loginUser methods that follow get exposed as part of the props. 
+*/
+const LoginComponentWithData = graphql(loginUser, {
+ props: ({ mutate }) => ({
+   loginUser: (email, password) =>
+     mutate({
+       variables: { email, password }
+     })
+ })
+})(Login);
+
+export default class Authentication extends Component {
+	render() {
+//… skipped code
+	<Tab label="LOGIN">
+{/* Render the connected component */}
+        <LoginComponentWithData />
+      </Tab>
+
+//… skipped code
+
+}
+}
+
+
+
+
+
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Subtopic: Creating a New Book – Creating the User Interface and Validations
+// Exercise: Creating a new book
+// Step 1
+// No 1
+
+// File app/components/NewBook.jsx
+import React, { Component } from 'react';
+import { Card, CardHeader, CardText } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import { styles } from './Authentication';
+import { Link } from 'react-router-dom';
+
+class NewBook extends Component {
+  constructor(props) {
+    super();
+    this.state = {
+      title: '',
+      description: '',
+      titleError: null,
+      descriptionError: null
+    };
+
+    this.createBook = this.createBook.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
+    this.updateDescription = this.updateDescription.bind(this);
+  }
+
+  createBook() {
+    this.setState({ titleError: null, descriptionError: null });
+    if (!this.state.title) this.setState({ titleError: 'Book Title Required' });
+    if (!this.state.description) this.setState({ descriptionError: 'Book Description Required' });
+    if (!this.state.title || !this.state.description) return;
+  }
+
+  updateTitle(_, newValue) {
+    // Hold values of the title input field
+    this.setState({ title: newValue });
+  }
+
+  updateDescription(_, newValue) {
+    // Hold values of the description input field
+    this.setState({ description: newValue });
+  }
+
+  render() {
+    return (
+      <div style={styles.flexContainer}>
+        <Card expanded style={styles.card}>
+          <CardHeader title="CREATE NEW BOOK" />
+          <CardText expandable={true}>
+            <div style={styles.center}>
+             <div>
+               <Link to="/"><FlatButton label="View Books List" secondary={true} /></Link>
+             </div>
+              <TextField
+                hintText="Book Title"
+                floatingLabelText="Book Title"
+                onChange={this.updateTitle}
+                errorText={this.state.titleError}
+                value={this.state.title}
+              />
+              <br />
+              <TextField
+                hintText="Description"
+                floatingLabelText="Description"
+                errorText={this.state.descriptionError}
+                onChange={this.updateDescription}
+                value={this.state.description}
+                multiLine
+              />
+              <br />
+              <RaisedButton label="Create Book" primary={true} onClick={this.createBook} />
+            </div>
+          </CardText>
+        </Card>
+      </div>
+    );
+  }
+}
+export default NewBook;
+
+
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Subtopic: Creating a New Book – Creating the User Interface and Validations
+// Exercise: Creating a new book
+// Step 2
+
+//File: app/utils.jsx
+import React from 'react';
+import { Redirect } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
+
+/*
+Return the userId if the user is logged in.
+*/
+let isLoggedIn = function() {
+   let token = localStorage.getItem('authToken');
+   if(token) {
+     let decoded = jwt_decode(token);
+     return decoded.userId;
+   }
+}
+/* 
+Logout by removing the token from local storage
+*/
+let logout = function() {
+ localStorage.removeItem('authToken');
+/*
+This should redirect us to the login page
+*/
+ window.location.href = '/login';
+};
+
+module.exports = { isLoggedIn, logout };
+
+
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Subtopic: Creating a New Book – Creating the User Interface and Validations
+// Exercise: Creating a new book
+// Step 3
+
+// File: app/config/routes.jsx
+import React from 'react';
+import ReactDOM from 'react-dom';
+/* Import the Redirect component */
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+// … skipped imports
+import NewBook from '../components/NewBook';
+import FlatButton from 'material-ui/FlatButton';
+import { isLoggedIn, logout } from '../utils';
+
+const client = new ApolloClient({
+	//… skipped code
+});
+
+/* 
+Create a Logout button to show when a user is logged in, show a Login button when the user is not logged in, but on the page with the list of books.
+*/
+let logoutButton = () => {
+  let button = isLoggedIn() ? (
+    <FlatButton label="LOGOUT" onClick={logout} />
+  ) : window.location.pathname !== '/login' ? (
+    <FlatButton label="LOGIN" onClick={() => (window.location.href = '/login')} />
+  ) : null;
+  return button;
+};
+
+
+/* 
+Show the Logout button on the far right of the AppBar
+*/
+const AppBarComponent = () => <AppBar title="GraphQL React" iconElementRight={logoutButton()} />;
+
+const routes = (
+  <MuiThemeProvider>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <div>
+          <AppBarComponent />
+          <br />
+          <Switch>
+            <Route exact path="/" component={BooksComponentWithData} />
+            <Route path="/login" component={Authentication} />
+{/*
+ Route to render the NewBook component for logged in users.
+*/}
+            <Route
+              path="/new"
+              render={() => {
+                return isLoggedIn() ? <NewBook /> : <Redirect to="/login" />;
+              }}
+            />
+{/* 
+Default route 
+*/}
+            <Route path="*" component={Authentication} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    </ApolloProvider>
+  </MuiThemeProvider>
+);
+
+export default routes;
+
+
+
+
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Subtopic: Creating a New Book – Creating the User Interface and Validations
+// Exercise: Creating a new book
+// Step 4
+
+// app/components/Authentication.jsx 
+// … code before
+loginUser() {
+   this.setState({ emailError: '', passwordError: '' });
+   if (!this.state.email) this.setState({ emailError: 'Email Required' });
+   if (!this.state.password) this.setState({ passwordError: 'Password Required' });
+   if (!this.state.password || !this.state.email) return;
+   this.props.loginUser(this.state.email, this.state.password).then(({ data })=> {
+     localStorage.setItem('authToken', data.user.token);
+     this.setState({ email: '', password: '' });
+/* Redirect to page with list of books */
+     window.location.href="/";
+   }).catch(err=>{
+     this.setState({ email: '', password: '' });
+/*
+Show error message when invalid login credentials are provided 
+*/
+     this.setState({ email: '', password: '', emailError: 'Invalid Login Credentials' });
+     console.error('Error:', err.message);
+   });
+ }
+// … code after
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Subtopic: Creating a New Book – Creating the User Interface and Validations
+// Exercise: Creating a new book
+// Step 5
+
+// File: app/components/BooksComponent.jsx
+//… skipped imports
+import { Link } from 'react-router-dom';
+import FlatButton from 'material-ui/FlatButton';
+import { isLoggedIn } from '../utils';
+
+const getBooksQuery = gql`
+  //...skipped code
+
+`;
+render() {
+	// … skipped code
+        else
+      return (
+        <Card expanded>
+          <CardHeader title="Books List" />
+          <CardText expandable={true}>
+{*/ Show link to create books for logged in users/*}
+          { isLoggedIn() ? (<Link to="/new"><FlatButton label="Create a New Book" primary={true} /></Link>): null }
+            <List>
+              //… skipped code
+            </List>
+          </CardText>
+        </Card>
+      );
+  }
+}
+
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Subtopic: Integrating GraphQL into the NewBook Component
+// Exercise: Linking the NewBook component to GraphQL
+// Step 1
+
+// File app/components/NewBook.jsx
+//… Skipped imports
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
+/*
+We use getBooksQuery to update the cache. Since this is the query that fetches all books, we need to update its results in the cache when a new book is created. This means a new request is not made to retrieve all books; the existing list in the cache is just updated.
+*/
+import { getBooksQuery } from './BooksComponent';
+
+/*
+Create a createBook mutation
+*/
+let createBookMutation = gql`
+ mutation createBook($title: String!, $description: String!) {
+   createBook(title: $title, description: $description) {
+     id
+     title
+     description
+   }
+ }
+`;
+
+class NewBook extends Component {
+	constructor(props) {
+		//...skipped code
+	}
+createBook() {
+    this.setState({ titleError: null, descriptionError: null });
+    if (!this.state.title) this.setState({ titleError: 'Book Title Required' });
+    if (!this.state.description) this.setState({ descriptionError: 'Book Description Required' });
+   if (!this.state.title || !this.state.description) return;
+/* 
+Invoke the createNewBook method to make a request to the server 
+*/
+   this.props.createNewBook(this.state.title, this.state.description).then(({ data })=> {
+     this.setState({ title: '', description: '' });
+     window.location.href="/";
+   }).catch(err => {
+     console.log('Error:::', err);
+   });
+  }
+
+//...skipped code(updateTitle, updateDescription and render methods)
+}
+/*
+Connect the NewBook component with GraphQL
+*/
+const NewBookComponentWithData = graphql(createBookMutation, {
+ props: ({ ownProps, mutate }) => ({
+/* 
+The createNewBook method will be exposed as part of the props
+*/
+   createNewBook: (title, description) =>
+     mutate({
+       variables: { title, description },
+       /*
+ 		Optimistic UI updates
+This will update the cache with a book record with a random id. This update will be overwritten when the server request completes successfully. It will also be reversed if the request has errors.
+*/
+       optimisticResponse: {
+         createBook: {
+           title,
+           description,
+           id: Math.round(Math.random() * -1000000), // Generate a random ID
+           __typename: 'Book',
+         },
+      },
+       update: (store, { data: { createBook } }) => {
+         // Read the data from our cache for this query.
+         try {
+           const data = store.readQuery({ query: getBooksQuery });
+           /* 
+Add our book from the mutation to the end of the existing list of books.
+    */
+           data.books.push(createBook);
+           /* 
+Write our data back to the cache (update the list of books in the cache).
+	    */
+           store.writeQuery({ query: getBooksQuery, data });
+         } catch(err){
+           console.log('Cache Error:', err);
+         }
+       },
+     })
+ })
+})(NewBook);
+/* 
+Export the connected component 
+*/
+export default NewBookComponentWithData;
+
+
+
+
+
+
+
+
+
+// Topic A: Setting up a React Client Application
+// Subtopic: Integrating GraphQL into the NewBook Component
+// Exercise: Linking the NewBook component to GraphQL
+// Step 3
+
+// File: app/config/routes.js
+//...skipped imports
+import NewBookComponentWithData from '../components/NewBook';
+import FlatButton from 'material-ui/FlatButton';
+import { isLoggedIn, logout } from '../utils';
+import { setContext } from 'apollo-link-context';
+			
+const authLink = setContext((_, { headers }) => {
+ // get the authentication token from local storage if it exists
+ const token = localStorage.getItem('authToken');
+ // return the headers to the context so httpLink can read them
+ return {
+   headers: Object.assign({}, headers, { Authorization: token ? `Bearer ${token}` : "" })
+ }
+});
+
+/*
+Create a fetch policy set to cache-and-network
+*/
+const defaultOptions = {
+ query: {
+   fetchPolicy: 'cache-and-network',
+   errorPolicy: 'all',
+ }
+};
+
+const client = new ApolloClient({
+ link: authLink.concat(new HttpLink({ uri: 'http://localhost:4000' })),
+ cache: new InMemoryCache(),
+ defaultOptions   // Set fetch policy option
+});
+
+/* Clear out the cache when logging out */
+
+let logoutButton = () => {
+ let button = isLoggedIn() ? (
+   <FlatButton label="LOGOUT" onClick={()=> { client.resetStore(); logout(); }} />
+ ) : window.location.pathname !== "/login" ? (
+   <FlatButton label="LOGIN" onClick={() => (window.location.href = "/login")} />
+ ) : null;
+ return button;
+};
+
+
+const AppBarComponent = //….skipped code
+
+const routes = (
+//… skipped code
+         <Switch>
+           <Route exact path="/" component={BooksComponentWithData} />
+           <Route path="/login" component={Authentication} />
+           <Route
+             path="/new"
+             render={() => {
+               return isLoggedIn() ? <NewBookComponentWithData /> : <Redirect to="/login" />;
+             }}
+           />
+           <Route path="*" component={Authentication} />
+         </Switch>
+//… skipped code      
+);
+
+export default routes;
+

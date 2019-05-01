@@ -1,0 +1,13 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: weatherreports.k8s.packt.com
+spec:
+  group: k8s.packt.com
+  names:
+    kind: WeatherReport
+    listKind: WeatherReportList
+    plural: weatherreports
+    singular: weatherreport
+  scope: Namespaced
+  version: v1

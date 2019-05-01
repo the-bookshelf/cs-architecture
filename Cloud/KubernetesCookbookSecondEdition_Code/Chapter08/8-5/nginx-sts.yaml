@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-sts-svc
+  labels:
+    app: nginx-sts
+spec:
+  ports:
+  - port: 80
+  selector:
+    app: nginx-sts
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: nginx-sts
+spec:
+  serviceName: "nginx-sts-svc"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nginx-sts
+    spec:
+      containers:
+        - name: nginx-sts
+          image: nginx
+          ports:
+          - containerPort: 80
+      restartPolicy: Always

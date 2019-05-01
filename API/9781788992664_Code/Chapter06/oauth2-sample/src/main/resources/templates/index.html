@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <title>OAuth 2 Sample</title>
+    </head>
+    <body>
+   		<h1>Home</h1>
+   		<p>Please  <a th:href="@{/welcome}">here</a> to see a public page.</p>
+   		<p>Noraml user click <a th:href="@{/users}">here</a>  to see your allowed pages</p>
+   		<p>Administrator user click <a th:href="@{/webadmin}">here</a>  to go to admin section</p>   		
+   		<div sec:authorize="isAuthenticated()">
+			Hello <span sec:authentication="name">someone</span>
+			<p><a th:href="@{/logout}">logout</a></p>
+		</div>
+   		
+    </body>
+</html>

@@ -1,0 +1,8 @@
+.app-header {
+    background-color: #1b1c1d;
+    padding: 20px;
+    margin: 0 0 10px 0;
+}
+.app-header > .header {
+    color: white;
+}

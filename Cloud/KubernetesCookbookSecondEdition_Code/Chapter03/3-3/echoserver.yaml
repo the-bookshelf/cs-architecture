@@ -1,0 +1,26 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: echoserver-deploy
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: echo 
+    spec:
+      containers:
+        - name: my-echo
+          image: gcr.io/google_containers/echoserver:1.8
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: echoserver-svc
+spec:
+  selector:
+    app: echo
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080

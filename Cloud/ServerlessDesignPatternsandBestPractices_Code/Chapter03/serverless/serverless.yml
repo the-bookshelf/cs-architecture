@@ -1,0 +1,100 @@
+service: coffee-cupping
+
+provider:
+  name: aws
+  runtime: python3.6
+  memorySize: 128
+  region: ${env:AWS_REGION}
+  timeout: 5
+  environment:
+    CUPPING_DB_USERNAME: ${env:CUPPING_DB_USERNAME}
+    CUPPING_DB_PASSWORD: ${env:CUPPING_DB_PASSWORD}
+    CUPPING_DB_NAME: ${env:CUPPING_DB_NAME}
+    CUPPING_DB_HOST:
+      Fn::GetAtt:
+        - RDSPostgresInstance
+        - Endpoint.Address
+  vpc:
+    securityGroupIds:
+      - Fn::GetAtt: ServerlessSecurityGroup.GroupId
+    subnetIds:
+      - ${env:SUBNET_ID_A}
+      - ${env:SUBNET_ID_B}
+      - ${env:SUBNET_ID_C}
+  iamRoleStatements:
+    # Allow the lambda function permission to create EINs, which is part of the
+    # AWSLambdaVPCAccessExecutionRole
+    - Effect: "Allow"
+      Action:
+        - "ec2:CreateNetworkInterface"
+        - "ec2:DescribeNetworkInterfaces"
+        - "ec2:DeleteNetworkInterface"
+      Resource: "*"
+
+# you can add packaging information here
+package:
+  exclude:
+    - .git/**
+    - __pycache__/**
+    - "**/__pycache__/**"
+    - "*.pyc"
+    - "*.swp"
+
+
+resources:
+  Resources:
+    ServerlessSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: SecurityGroup for Serverless Functions
+        VpcId: ${env:VPC_ID}
+    RDSSecurityGroup:
+      Type: AWS::EC2::SecurityGroup
+      Properties:
+        GroupDescription: Ingress for RDS Instance
+        VpcId: ${env:VPC_ID}
+        SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '5432'
+          ToPort: '5432'
+          SourceSecurityGroupId:
+            Ref: ServerlessSecurityGroup
+    RDSSubnetGroup:
+      Type: AWS::RDS::DBSubnetGroup
+      Properties:
+        DBSubnetGroupDescription: RDS Subnet Group
+        SubnetIds:
+          - ${env:SUBNET_ID_A}
+          - ${env:SUBNET_ID_B}
+          - ${env:SUBNET_ID_C}
+    RDSPostgresInstance:
+      Type: AWS::RDS::DBInstance
+      Properties:
+        AllocatedStorage: 100
+        AutoMinorVersionUpgrade: true
+        AvailabilityZone: ${self:provider.region}a
+        DBInstanceClass: db.t2.micro
+        DBName: ${env:CUPPING_DB_NAME}
+        DBSubnetGroupName:
+          Ref: RDSSubnetGroup
+        Engine: postgres
+        EngineVersion: 9.6.2
+        MasterUsername: ${env:CUPPING_DB_USERNAME}
+        MasterUserPassword: ${env:CUPPING_DB_PASSWORD}
+        PubliclyAccessible: false
+        VPCSecurityGroups:
+          - Fn::GetAtt: RDSSecurityGroup.GroupId
+
+
+functions:
+  GraphQL:
+    handler: handler.graphql
+    events:
+      - http:
+          path: graphql
+          method: get
+          cors: true
+      - http:
+          path: graphql
+          method: post
+          cors: true

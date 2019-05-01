@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-nginx-gcr
+spec:
+  containers:
+  - name: private-nginx-gcr
+    image: gcr.io/kubernetes-cookbook/my-nginx
+  imagePullSecrets:
+  - name: my-gcr-secret

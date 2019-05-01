@@ -1,0 +1,46 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: my-jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: my-jenkins
+  template:
+    metadata:
+      labels:
+        run: my-jenkins
+    spec:
+      serviceAccountName: jenkins-sa
+      containers:
+      - name: my-jenkins
+        image: hidetosaito/my-jenkins
+        readinessProbe:
+          initialDelaySeconds: 40
+          tcpSocket:
+            port: 8080
+        volumeMounts: 
+        - mountPath: /var/run/docker.sock
+          name: docker-sock 
+        - mountPath: /var/jenkins_home
+          name: jenkins-data
+      volumes: 
+      - name: docker-sock
+        hostPath: 
+          path: /var/run/docker.sock
+      - name: jenkins-data
+        hostPath:
+          path: /data/jenkins-data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-jenkins-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+  type: ClusterIP
+  selector:
+     run: my-jenkins

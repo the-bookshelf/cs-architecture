@@ -1,0 +1,14 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6-alpine
+    ports:
+      - 5532:5432
+  serverless:
+    image: verypossible/serverless:1.25.0-python3
+    environment:
+      - ENV
+    env_file:
+      - envs/${ENV}
+    volumes:
+      - .:/code

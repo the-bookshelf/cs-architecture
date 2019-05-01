@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: my-first-replicaset
+  labels:
+    version: 0.0.1 
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      project: My-Happy-Web
+      role: frontend
+  template:
+    metadata:
+      labels:
+        project: My-Happy-Web
+        role: frontend
+        env: dev
+    spec:
+      containers:
+      - name: happy-web
+        image: nginx:latest

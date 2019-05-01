@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: k8s-ep
+subsets:
+  - addresses:
+      - hostname: kubernetes-io
+        ip: 45.54.44.100
+    ports:
+      - port: 80

@@ -1,0 +1,35 @@
+{
+	"$schema": "http://json-schema.org/draft-06/schema#",
+	"id": "BusinessEntity.json",
+	"title": "BusinessEntity",
+	"description": "Business entity model",
+	"type": "object",
+	"javaType": "com.books.chapters.restfulapi.patterns.parttwo.adapter.entity.BusinessEntity",
+	"additionalProperties": false,
+	"properties": {
+		"id": {
+			"type": "string"
+		},
+		"entityType": {
+			"type": "string"
+		},
+		"entitySpecification": {
+			"type": "string"
+		},
+		"name": {
+			"type": "string"
+		},
+		"status": {
+			"type": "string"
+		},
+		"relatedEntities": {
+			"type": "array",
+			"items": {
+				"$ref": "BusinessEntity.json#"
+			}
+		}
+	},
+	"required": [
+		"id"
+	]
+}

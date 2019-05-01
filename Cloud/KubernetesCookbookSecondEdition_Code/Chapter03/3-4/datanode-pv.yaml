@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-datanode-svc
+  labels:
+    app: hdfs-datanode
+spec:
+  ports:
+  - port: 50010
+  clusterIP: None
+  selector:
+    app: hdfs-datanode
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: hdfs-datanode
+spec:
+  serviceName: "hdfs-datanode-svc"
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: hdfs-datanode
+    spec:
+      containers:
+        - name: datanode
+          image: uhopper/hadoop-datanode:2.7.2
+          env:
+            - name: CORE_CONF_fs_defaultFS
+              value: hdfs://hdfs-namenode-0.hdfs-namenode-svc.default.svc.cluster.local:8020
+          ports:
+          - containerPort: 50010
+          volumeMounts:
+          - mountPath: /hadoop/dfs/data
+            name: hdfs-data
+      restartPolicy: Always
+  volumeClaimTemplates:
+  - metadata:
+      name: hdfs-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi

@@ -1,0 +1,45 @@
+service: error-handler
+
+provider:
+  name: aws
+  runtime: python3.6
+  region: ${env:AWS_REGION}
+  state: ${env:$ENV}
+  timeout: 4
+  environment:
+    SENTRY_ENVIRONMENT: ${env:ENV}
+    SENTRY_DSN: ${env:SENTRY_DSN}
+    ROLLBAR_KEY: ${env:ROLLBAR_KEY}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - KMS:Decrypt
+      Resource: ${env:KEY_ARN}
+
+package:
+  exclude:
+    - .git/**
+    - __pycache__/**
+    - "**/__pycache__/**"
+    - "*.pyc"
+    - "*.swp"
+
+functions:
+  divide:
+    handler: handler.divide
+    events:
+      - http: GET /
+  process:
+    handler: handler.process
+    events:
+      - http: GET /process
+    environment:
+      DB_PASSWORD: ${env:DB_PASSWORD}
+
+plugins:
+  - serverless-prune-plugin
+
+custom:
+  prune:
+    automatic: true
+    number: 2

@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hdfs-namenode-svc
+  labels:
+    app: hdfs-namenode
+spec:
+  ports:
+  - port: 8020
+  clusterIP: None
+  selector:
+    app: hdfs-namenode
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: hdfs-namenode
+spec:
+  serviceName: "hdfs-namenode-svc"
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hdfs-namenode
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+        - name: hdfs-namenode
+          image: uhopper/hadoop-namenode
+          env:
+            - name: CLUSTER_NAME
+              value: k8s-hdfs-cookbook
+          ports:
+          - containerPort: 8020
+      restartPolicy: Always

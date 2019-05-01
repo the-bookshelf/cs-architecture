@@ -1,0 +1,142 @@
+{
+	"info": {
+		"_postman_id": "f92c1f46-0c7a-48f8-a864-3fd902d583cd",
+		"name": "book-examples copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RESTful-API",
+			"item": [
+				{
+					"name": "chapter-4",
+					"item": [
+						{
+							"name": "Versioning",
+							"item": [
+								{
+									"name": "Version throgh URI - GET",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/v1/investors/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"v1",
+												"investors",
+												""
+											]
+										},
+										"description": "with version"
+									},
+									"response": []
+								},
+								{
+									"name": "Version throgh Parameter - GET",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/?version=1.1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												""
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "1.1"
+												}
+											]
+										},
+										"description": "with version as parameter"
+									},
+									"response": []
+								},
+								{
+									"name": "Version through Custom Header - Get",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-resource-version",
+												"value": "1.1"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investorsbycustomheaderversion/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investorsbycustomheaderversion",
+												""
+											]
+										},
+										"description": "version through custom header"
+									},
+									"response": []
+								},
+								{
+									"name": "Version through Accept Header sample 1 - Get",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/investors-v1.1+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investorsbyacceptheader",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investorsbyacceptheader"
+											]
+										},
+										"description": "version through accept header"
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: my-frontend-deploy
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: my-frontend
+  template:
+    metadata:
+      labels:
+        run: my-frontend
+    spec:
+      containers:
+      - name: my-frontend
+        image: hidetosaito/my-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-frontend-service
+spec:
+  ports:
+    - protocol: TCP
+      port: 5000
+      nodePort: 30080
+  type: NodePort
+  selector:
+     run: my-frontend

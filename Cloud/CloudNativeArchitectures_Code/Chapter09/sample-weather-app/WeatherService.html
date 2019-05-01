@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Cloud Native - Serverless Microservice Example</title>
+      <style>
+         #back{
+         background-color:#6D6D6D;
+         padding: 16px;
+         }	
+         #header {
+         background-color:#212121;
+         color:white;
+         text-align:center;
+         padding:5px;
+         }
+         #nav {
+         background-color:#eeeeee;
+         padding:25px; 
+         }
+      </style>
+   </head>
+   <body id="back">
+      <div>
+         <div id="header">
+            <h2>Cloud Native - Serverless Microservice Example</h2>
+         </div>
+         <div align="left" id="nav">
+            <form method="get" action="https://d6jpfce7vd.execute-api.us-east-1.amazonaws.com/prod/WeatherServiceFunction">
+               <label >
+                  <h3>Retrieve Current weather for a location:</h3>
+               </label>
+               </br>
+               <table  cellpadding="8px">
+                  <tr >
+                     <td>Zip Code:</td>
+                     <td><input type="text" size="25" required name="zip"/></td>
+                  </tr>
+                  <tr>
+                     <td>OpenWeatherMap App Id (API Key):</td>
+                     <td><input type="text"  required size="16" name="appid"></td>
+                  </tr>
+                  <tr align="center">
+                     <td align="center"><input type="submit" value="Get Weather" /></td>
+                  </tr>
+               </table>
+            </form>
+         </div>
+      </div>
+   </body>
+</html>

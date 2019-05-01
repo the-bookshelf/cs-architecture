@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: my-nginx
+spec:
+  replicas: 2
+  selector:
+    service : nginx
+  template:
+    metadata:
+      labels:
+        service : nginx
+    spec:
+      containers:
+        - name: my-container
+          image: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-nginx
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      nodePort: 30080
+  type: NodePort
+  selector:
+    service: nginx

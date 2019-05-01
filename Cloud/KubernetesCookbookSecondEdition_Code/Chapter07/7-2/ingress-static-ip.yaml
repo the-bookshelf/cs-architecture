@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: my-ingress-static-ip
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.global-static-ip-name: my-external-ip 
+spec:
+  rules:
+    - http: 
+        paths:
+          - path: /
+            # default backend
+            backend:
+              serviceName: nodeport-svc
+              servicePort: 8080
+          - path: /nginx
+            # nginx service
+            backend:
+              serviceName: nodeport-svc
+              servicePort: 8080
+          - path: /echoserver
+            # echoserver service
+            backend:
+              serviceName: echoserver-svc
+              servicePort: 8080

@@ -1,0 +1,1 @@
+java -jar bookexamples/ch03/Hands-On-RESTful-API-Design-Patterns-and-Best-Practices/investor-services/target/investor-services-0.0.1-SNAPSHOT.jar

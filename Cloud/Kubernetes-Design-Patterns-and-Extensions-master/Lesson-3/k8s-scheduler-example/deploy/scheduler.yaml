@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: scheduler
+  labels:
+    app: scheduler
+spec:
+  containers:
+  - name: scheduler
+    image: onuryilmaz/k8s-scheduler-example
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: k8s-scheduler-example
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - "*"
+  verbs:
+  - "*"
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: default-account-k8s-scheduler-example
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: k8s-scheduler-example
+  apiGroup: rbac.authorization.k8s.io

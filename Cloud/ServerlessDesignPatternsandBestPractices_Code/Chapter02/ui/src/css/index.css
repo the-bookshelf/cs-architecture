@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#root,
+.main-container {
+  height: 100%;
+}
+
+#main-content {
+  margin: 0;
+}

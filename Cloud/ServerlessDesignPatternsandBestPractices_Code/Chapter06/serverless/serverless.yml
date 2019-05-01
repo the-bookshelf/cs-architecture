@@ -1,0 +1,68 @@
+service: twitter-stream
+
+provider:
+  name: aws
+  runtime: python2.7
+  memorySize: 128
+  region: ${env:AWS_REGION}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sqs:*
+      Resource: "arn:aws:sqs:${env:AWS_REGION}:*:${env:ENV}TwitterFirehoseQueue"
+    - Effect: Allow
+      Action:
+        - rekognition:DetectLabels
+      Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource: "arn:aws:dynamodb:${env:AWS_REGION}:*:table/${env:DYNAMODB_RESULTS_TABLE_NAME}"
+  environment:
+    TWITTER_ACCESS_SECRET: ${env:TWITTER_ACCESS_SECRET}
+    TWITTER_ACCESS_TOKEN: ${env:TWITTER_ACCESS_TOKEN}
+    TWITTER_CONSUMER_KEY: ${env:TWITTER_CONSUMER_KEY}
+    TWITTER_CONSUMER_SECRET: ${env:TWITTER_CONSUMER_SECRET}
+    TWITTER_STREAM_QUEUE_NAME: ${env:ENV}TwitterFirehoseQueue
+    DYNAMODB_RESULTS_TABLE_NAME: ${env:DYNAMODB_RESULTS_TABLE_NAME}
+
+package:
+  exclude:
+    - .git/**
+    - __pycache__/**
+    - "**/__pycache__/**"
+    - "*.pyc"
+    - "*.swp"
+
+resources:
+  Resources:
+    FirehoseSQS:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${env:ENV}TwitterFirehoseQueue
+        VisibilityTimeout: 30
+    DynamoResultsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${env:DYNAMODB_RESULTS_TABLE_NAME}
+        AttributeDefinitions:
+          - AttributeName: url
+            AttributeType: S
+        KeySchema:
+          - AttributeName: url
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: ${env:DYNAMODB_TABLE_READ_IOPS}
+          WriteCapacityUnits: ${env:DYNAMODB_TABLE_WRITE_IOPS}
+
+functions:
+  Firehose:
+    handler: handler.firehose
+    timeout: 58
+    events:
+      - schedule: rate(1 minute)
+  Classify:
+    handler: handler.classify
+    timeout: 58
+    events:
+      - schedule: rate(1 minute)

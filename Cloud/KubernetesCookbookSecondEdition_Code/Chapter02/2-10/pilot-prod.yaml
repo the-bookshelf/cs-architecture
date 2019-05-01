@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pilot.prod.nginx
+  labels:
+    project: pilot
+    environment: production
+    tier: frontend
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+      - containerPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pilot.prod.memcached
+  labels:
+    project: pilot
+    environment: production
+    tier: cache
+spec:
+  containers:
+    - name: memcached
+      image: memcached
+      ports:
+      - containerPort: 11211

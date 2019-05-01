@@ -1,0 +1,76 @@
+spring:
+  profiles: default
+  rabbitmq:
+    host: localhost
+    port: 5777
+    username: test
+    password: test
+
+---
+
+spring:
+  profiles: location
+  include: 
+  - default
+  rabbitmq:
+    serviceRoutings: 
+    - shoppingcart.rpc->LocationService.*->LocationServiceQueue
+    - customer.rpc->LocationService.*->LocationServiceQueue
+    eventRoutings:
+    - shoppingcart.pub->LocationService.*->LocationEventQueue
+    - customer.pub->LocationService.*->LocationEventQueue
+
+---
+
+spring:
+  profiles: payment
+  include: 
+  - default
+  rabbitmq:
+    serviceRoutings: 
+    - shoppingcart.rpc->PaymentService.*->PaymentServiceQueue
+    - customer.rpc->PaymentService.*->PaymentServiceQueue
+
+---
+
+spring:
+  profiles: inventory
+  include: 
+  - default
+  rabbitmq:
+    serviceRoutings: 
+    - shoppingcart.rpc->InventoryService.*->InventoryServiceQueue
+    - catalog.rpc->InventoryService.*->InventoryServiceQueue
+
+---
+
+spring:
+  profiles: order
+  include: 
+  - default
+  rabbitmq:
+    serviceRoutings: 
+    - shoppingcart.rpc->OrderService.*->OrderServiceQueue
+    - customer.rpc->OrderService.*->OrderServiceQueue
+
+---
+
+spring:
+  profiles: customer
+  include: 
+  - default
+  rabbitmq:
+    serviceRoutings: 
+    - shoppingcart.rpc->CustomerService.*->CustomerServiceQueue
+    eventRoutings:
+    - shoppingcart.pub->CustomerService.*->CustomerEventQueue
+
+---
+
+spring:
+  profiles: backoffice
+  include: 
+  - default
+  rabbitmq:
+    eventRoutings:
+    - shoppingcart.pub->BackofficeService.notify->BackofficeEventQueue

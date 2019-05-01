@@ -1,0 +1,65 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: eventer
+    version: v1.5.2
+  name: eventer-v1.5.2
+  namespace: kube-system
+spec:
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ""
+      labels:
+        k8s-app: eventer
+        version: v1.5.2
+    spec:
+      serviceAccountName: heapster
+      containers:
+      - image: k8s.gcr.io/heapster-amd64:v1.5.2
+        name: eventer
+        command:
+        - /eventer
+        - --source=kubernetes:''
+        - --sink=elasticsearch:http://elasticsearch-logging:9200?sniff=false
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /healthz
+            port: 8084
+            scheme: HTTP
+          initialDelaySeconds: 180
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 88m
+            memory: 204Mi
+          requests:
+            cpu: 88m
+            memory: 204Mi
+      tolerations:
+      - key: CriticalAddonsOnly
+        operator: Exists
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: heapster
+  namespace: kube-system
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: heapster
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:heapster
+subjects:
+- kind: ServiceAccount
+  name: heapster
+  namespace: kube-system

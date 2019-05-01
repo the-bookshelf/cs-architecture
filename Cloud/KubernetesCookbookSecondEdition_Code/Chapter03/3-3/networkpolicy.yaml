@@ -1,0 +1,13 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: nginx-networkpolicy
+spec:
+  podSelector:
+    matchLabels:
+      run: nginx-pod
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            test: inbound

@@ -1,0 +1,23 @@
+{
+	"$schema": "http://json-schema.org/draft-06/schema#",
+	"id": "ErrorMessage.json",
+	"title": "ErrorMessage",
+	"description": "Errors",
+	"type": "object",
+	"javaType": "com.books.chapters.restfulapi.patterns.parttwo.adapter.entity.ErrorMessage",
+	"additionalProperties": false,
+	"properties": {
+		"code": {
+			"type": "string",
+			"description": "error code short desc."
+		},
+		"message": {
+			"type": "string",
+			"description": "error message."
+		},
+		"details": {
+			"type": "string",
+			"description": "error description."
+		}
+	}
+}

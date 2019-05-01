@@ -1,0 +1,1350 @@
+{
+	"info": {
+		"_postman_id": "6d269859-fb5d-569b-5ea9-37c5f6b3740c",
+		"name": "book-examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RESTful-API",
+			"item": [
+				{
+					"name": "chapter-3",
+					"item": [
+						{
+							"name": "REST-API-example-1- GET-Welcome - UTF 8 example",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:9090/welcome",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"welcome"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "REST-API-example-1- GET",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:9090/investors/invr_1/stocks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"investors",
+										"invr_1",
+										"stocks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "REST-API-Example-2-POST-NewStock",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"symbol\": \"EXc\",\n    \"numberOfSharesHeld\": 100,\n    \"tickerPrice\": 19.9\n}"
+								},
+								"url": {
+									"raw": "http://localhost:9090/investors/invr_1/stocks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"investors",
+										"invr_1",
+										"stocks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "REST-API-Example-3-DEL-Stock",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {},
+								"url": {
+									"raw": "http://localhost:9090/investors/invr_1/stocks/exc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"investors",
+										"invr_1",
+										"stocks",
+										"exc"
+									]
+								},
+								"description": "delete a stock"
+							},
+							"response": []
+						},
+						{
+							"name": "REST-API-Example-2-PUT-Stock",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "usrSecret",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "user",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"symbol\": \"EXB\",\n    \"numberOfSharesHeld\": 125,\n    \"tickerPrice\": 19.9\n}"
+								},
+								"url": {
+									"raw": "http://localhost:9090/investors/invr_1/stocks",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"investors",
+										"invr_1",
+										"stocks"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "chapter-4",
+					"item": [
+						{
+							"name": "Versioning",
+							"item": [
+								{
+									"name": "Version throgh URI - GET",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/v1/investors/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"v1",
+												"investors",
+												""
+											]
+										},
+										"description": "with version"
+									},
+									"response": []
+								},
+								{
+									"name": "Version throgh Parameter - GET",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/?version=1.1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												""
+											],
+											"query": [
+												{
+													"key": "version",
+													"value": "1.1"
+												}
+											]
+										},
+										"description": "with version as parameter"
+									},
+									"response": []
+								},
+								{
+									"name": "Version through Custom Header - Get",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "x-resource-version",
+												"value": "1.1"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investorsbycustomheaderversion/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investorsbycustomheaderversion",
+												""
+											]
+										},
+										"description": "version through custom header"
+									},
+									"response": []
+								},
+								{
+									"name": "Version through Accept Header sample 1 - Get",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/investors-v1.1+json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investorsbyacceptheader",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investorsbyacceptheader"
+											]
+										},
+										"description": "version through accept header"
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Auth",
+							"item": [
+								{
+									"name": "auth-no-auth-Welcome page",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/welcome",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"welcome"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-admin-access-withNoAuthHeader-401 error",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/admin",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-admin-access denied ex (different user)",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "usrSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/admin",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-admin-access-success",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "abe71c95-6569-4112-bed5-4f6047ce98a2",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "admSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/admin",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-investors-show-message",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "usrSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{Id}- 401 Unauthorized No Credentials",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_2"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{Id}- wrong Credentials - 401",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "wrong",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_2/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_2",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{Id}- admin able to access",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "admSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_2/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_2",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{Id}- user able to access",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "usrSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_1/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_1",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{Id}-Stock- user able to access ",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "usrSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_1/stocks",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_1",
+												"stocks"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{id}-Stock-Delete - 401 - No Auth",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_1/stocks/exc",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_1",
+												"stocks",
+												"exc"
+											]
+										},
+										"description": "delete a stock"
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{id}-Stock-Delete - Success",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "usrSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_1/stocks/exc",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_1",
+												"stocks",
+												"exc"
+											]
+										},
+										"description": "delete a stock"
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{id}-stock-Post - 401 - No Auth",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"symbol\": \"EXc\",\n    \"numberOfSharesHeld\": 100,\n    \"tickerPrice\": 19.9\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_1/stocks",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_1",
+												"stocks"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{id}-stock-Post Success",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "usrSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"symbol\": \"EXc\",\n    \"numberOfSharesHeld\": 100,\n    \"tickerPrice\": 19.9\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_1/stocks",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_1",
+												"stocks"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{id}-stock- PUT Success",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "usrSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"symbol\": \"EXc\",\n    \"numberOfSharesHeld\": 125,\n    \"tickerPrice\": 19.9\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_1/stocks",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_1",
+												"stocks"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{id}-stock- PUT - 401 - Unauthorized",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"symbol\": \"EXc\",\n    \"numberOfSharesHeld\": 125,\n    \"tickerPrice\": 19.9\n}"
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_1/stocks",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_1",
+												"stocks"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "BulkOperations",
+							"item": [
+								{
+									"name": "bulk-oprn-patch",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "usrSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "x-bulk-patch",
+												"value": "true"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": " [\n   {\n        \"symbol\": \"EXA\",\n        \"tickerPrice\": 50\n   },\n   {\n        \"symbol\": \"EXB\",\n        \"numberOfSharesHeld\": 110,\n        \"tickerPrice\": 80\n    }\n]"
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_1/stocks",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_1",
+												"stocks"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "CircuitBreaker",
+							"item": [
+								{
+									"name": "circuit-breaker-service-welcome",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:8090/investors/welcome",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8090",
+											"path": [
+												"investors",
+												"welcome"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "circuit-breaker-service-consumer-welcome",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/welcome",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"welcome"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Facade",
+							"item": [
+								{
+									"name": "pull-all-investors-n-their-stocks-as-admin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "abe71c95-6569-4112-bed5-4f6047ce98a2",
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "admSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "admin",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:9090/investors/admin",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"admin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "auth-inv_{id}-Stock-Delete - Success",
+									"request": {
+										"auth": {
+											"type": "basic",
+											"basic": [
+												{
+													"key": "password",
+													"value": "usrSecret",
+													"type": "string"
+												},
+												{
+													"key": "username",
+													"value": "user",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {},
+										"url": {
+											"raw": "http://localhost:9090/investors/invr_2/stocks/exc",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "9090",
+											"path": [
+												"investors",
+												"invr_2",
+												"stocks",
+												"exc"
+											]
+										},
+										"description": "delete a stock"
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "chapter-6",
+					"item": [
+						{
+							"name": "OAuth2-get-administrator-token",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "client-secret1@3",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "client",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "password",
+											"value": "secret@dmin",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "admin",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:9090/oauth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "OAuth2-access-admin-page",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer f671876a-220d-47a0-93fc-6ea2fcc20891",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "Authorization",
+											"value": "bearer a18218ad-5f44-4341-9294-4d38bac43f6e",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:9090/admin",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "OAuth2-get-user-token",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "client-secret1@3",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "client",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "password",
+											"value": "secret1@3",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "user2",
+											"type": "text"
+										},
+										{
+											"key": "grant_type",
+											"value": "password",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:9090/oauth/token",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"oauth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "OAuth-2-access-user-page",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer 0a592d09-fa74-4c2e-875d-6c4878306580",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://localhost:9090/userService",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "9090",
+									"path": [
+										"userService"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "312350f0-3e58-41f4-b11f-ddc2d2a5c975",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "83f482cc-eba0-45af-9f62-8b333102f7f8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,61 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: my-private-registry
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: my-registry
+  template:
+    metadata:
+      labels:
+        run: my-registry
+    spec:
+      containers:
+      - name: my-registry
+        image: registry
+        env:
+          - name: REGISTRY_HTTP_HOST
+            value: 10.138.0.3:30500
+          - name: REGISTRY_HTTP_SECRET
+            valueFrom:
+               secretKeyRef:
+                 name: registry-secrets
+                 key: http.secret
+          - name: REGISTRY_HTTP_TLS_CERTIFICATE
+            value: /mnt/domain.crt
+          - name: REGISTRY_HTTP_TLS_KEY
+            value: /mnt/domain.key
+        ports:
+          - containerPort: 5000
+        volumeMounts:
+          - mountPath: /var/lib/registry
+            name: registry-storage
+          - mountPath: /mnt
+            name: certs
+      volumes:
+      - name: registry-storage
+        persistentVolumeClaim:
+          claimName: "pvc-1"
+      - name: certs
+        secret:
+           secretName: registry-secrets
+           items:
+           - key: domain.key
+             path: domain.key
+           - key: domain.crt
+             path: domain.crt
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: private-registry-svc
+spec:
+  ports:
+    - protocol: TCP
+      port: 5000
+      nodePort: 30500
+  type: NodePort
+  selector:
+     run: my-registry

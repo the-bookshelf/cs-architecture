@@ -1,0 +1,14 @@
+[run]
+branch = true
+omit = 
+    serverless/lib/*
+    tests/*
+    **/__pycache__/*
+
+
+[report]
+exclude_lines = 
+    pragma: no cover
+    _drop_tables
+    _clear_tables
+    if __name__ == .__main__.:

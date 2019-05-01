@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: A simple Cloud Native Microservice sample, including an AWS SAM template with API defined in an external Swagger file along with Lambda integrations and CORS configurations
+Resources:
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      DefinitionUri: ./cloud-native-api-swagger.yaml
+      StageName: Prod
+      Variables:
+        # NOTE: Before using this template, replace the <<region>> and <<account>> fields
+        #       in Lambda integration URI in the swagger file to region and accountId 
+        #       you are deploying to
+        LambdaFunctionName: !Ref LambdaFunction
+
+  LambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./cloudnative-weather-service.zip
+      Handler: lambda_function.lambda_handler
+      Runtime: python3.6
+      Events:
+        ProxyApiRoot:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /weatherservice
+            Method: get
+        ProxyApiGreedy:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ApiGatewayApi
+            Path: /weatherservice
+            Method: options
+
+Outputs:
+  ApiUrl:
+    Description: URL of your API endpoint
+    Value: !Join
+      - ''
+      - - https://
+        - !Ref ApiGatewayApi
+        - '.execute-api.'
+        - !Ref 'AWS::Region'
+        - '.amazonaws.com/Prod'
+        - '/weatherservice'

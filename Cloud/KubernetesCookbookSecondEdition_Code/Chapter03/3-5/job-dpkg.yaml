@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: package-check
+spec:
+  template:
+    spec:
+      containers:
+      - name: package-check
+        image: ubuntu
+        command: ["dpkg-query", "-l"]
+      restartPolicy: Never
