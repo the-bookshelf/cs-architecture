@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: javax.batch:javax.batch-api:1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.batch/javax.batch-api/1.0/65392d027a6eb369fd9fcd1b75cae150e25ac03c/javax.batch-api-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.batch/javax.batch-api/1.0/fdde8fdbf88afaa185558c711bd5cd6dfdd459f9/javax.batch-api-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

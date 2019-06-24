@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: configuration-demo
+  cloud:
+    config:
+      uri: http://localhost:9000

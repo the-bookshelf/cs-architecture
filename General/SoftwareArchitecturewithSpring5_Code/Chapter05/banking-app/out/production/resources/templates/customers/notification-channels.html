@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="default-layout">
+<head>
+    <title>Home</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Preferred notification channels</h1>
+
+
+    <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active">
+            My channels
+        </a>
+        <a href="#" class="list-group-item list-group-item-action" th:each="channel : ${preferredChannels}">
+            <span th:text="${channel}"></span>
+        </a>
+    </div>
+
+</div>
+</body>
+</html>

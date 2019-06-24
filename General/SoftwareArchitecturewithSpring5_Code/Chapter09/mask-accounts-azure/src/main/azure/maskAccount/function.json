@@ -1,0 +1,22 @@
+{
+  "scriptFile": "../mask-accounts-azure-1.0.0.BUILD-SNAPSHOT-azure.jar",
+  "entryPoint": "com.packtpub.maskaccounts.Handler.execute",
+  "bindings": [
+    {
+      "type": "httpTrigger",
+      "name": "in",
+      "direction": "in",
+      "authLevel": "anonymous",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "name": "$return",
+      "direction": "out"
+    }
+  ],
+  "disabled": false
+}

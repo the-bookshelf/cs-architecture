@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import org.kordamp.bootstrapfx.scene.layout.Panel?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.packtpub.bankingclient.security.ui.LoginController">
+
+    <Panel styleClass="panel-primary">
+        <heading>
+            <Label styleClass="h3" text="Login"/>
+        </heading>
+        <body>
+            <GridPane vgap="15" hgap="5">
+                <Text fx:id="error" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                      fill="RED" GridPane.columnSpan="2"/>
+                <Text text="Username:" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <TextField fx:id="username" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+
+                <Text text="Password:" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                <PasswordField fx:id="password" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+
+                <HBox spacing="15" GridPane.columnIndex="2"
+                      GridPane.rowIndex="3">
+                    <Button text="Login" onAction="#login" styleClass="btn-primary"/>
+                    <Button text="Cancel" onAction="#cancel" styleClass="btn-danger"/>
+                </HBox>
+
+            </GridPane>
+        </body>
+    </Panel>
+</StackPane>

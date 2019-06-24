@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+group = 'com.packtpub'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '1.10.19'
+    compile "io.projectreactor:reactor-core:3.1.2.RELEASE"
+}

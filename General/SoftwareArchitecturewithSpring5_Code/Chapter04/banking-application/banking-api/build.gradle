@@ -1,0 +1,39 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+group 'com.packtpub'
+version '0.0.1-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile project(':banking-domain')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile 'io.jsonwebtoken:jjwt:0.7.0'
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.codehaus.groovy:groovy')
+    runtime('com.h2database:h2')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.security:spring-security-test')
+    testCompile('org.spockframework:spock-core:1.1-groovy-2.4-rc-2')
+    testCompile('cglib:cglib-nodep:2.2')
+    compile 'io.springfox:springfox-swagger2:2.7.0'
+    compile 'io.springfox:springfox-swagger-ui:2.7.0'
+}

@@ -1,0 +1,20 @@
+group 'com.packtpub'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+        url 'https://dl.bintray.com/aalmiray/kordamp/'
+    }
+}
+
+dependencies {
+    compile group: 'org.kordamp.bootstrapfx', name: 'bootstrapfx-core', version: '0.1.0'
+    compile 'com.packtpub:banking-client:0.0.1-SNAPSHOT'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

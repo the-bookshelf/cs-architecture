@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+    database:
+        image: mysql:5
+        ports:
+            - "3306:3306"
+        volumes:
+            # Use this option to persist the MySQL DBs in a shared volume.
+            - db-data:/Users/moe/Documents/.mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=example
+            - MYSQL_DATABASE=demo
+
+    application:
+        image: enriquezrene/docker-compose-banking-app:1.0
+        ports:
+            - "8081:8080"
+        depends_on:
+            - database
+        environment:
+            - spring.datasource.url=jdbc:mysql://database:3306/demo
+            - spring.datasource.password=example
+        links:
+            - database
+
+volumes:
+  db-data:

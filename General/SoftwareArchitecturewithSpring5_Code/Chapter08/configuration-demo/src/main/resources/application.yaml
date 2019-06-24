@@ -1,0 +1,17 @@
+middleware:
+  apiKey: ABCD-1234
+  port: 8081
+
+event-bus:
+  domain: event-bus.api.com
+  protocol: http
+
+configuration:
+  dynamicValue: 99
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
