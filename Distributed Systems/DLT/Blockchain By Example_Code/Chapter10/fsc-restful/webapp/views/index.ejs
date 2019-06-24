@@ -1,0 +1,146 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hyperledger Fabric Restful example - Blockchain By Example</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script>
+      $(document).ready(function(){
+        $("#chainCodeQuery").click(function(){
+          $.get("http://18.188.241.128:3000/queryChaincode", function(data){
+			var parsedJson = $.parseJSON($.parseJSON(data));
+			console.log(parsedJson);
+			  $("#OrderId").val(parsedJson.OrderId);
+			  $("#FoodId").val(parsedJson.FoodId);
+			   $("#ConsumerId").val(parsedJson.ConsumerId);
+			  $("#ShippingPrice").val(parsedJson.ShippingPrice);
+			  $("#OrderPrice").val(parsedJson.OrderPrice);
+			  $("#RawFoodProcessDate").val(parsedJson.RawFoodProcessDate);
+			  $("#Status").val(parsedJson.Status);
+			  $("#WholesaleProcessDate").val(parsedJson.WholesaleProcessDate);
+			  $("#WholesalerId").val(parsedJson.WholesalerId);
+			  $("#RetailerId").val(parsedJson.RetailerId);
+			  $("#RetailProcessDate").val(parsedJson.RetailProcessDate);
+			  $("#DeliveryDate").val(parsedJson.DeliveryDate);
+			  $("#LogisticsId").val(parsedJson.LogisticsId);
+			  $("#ManufactureId").val(parsedJson.ManufactureId);
+			  $("#ManufactureProcessDate").val(parsedJson.ManufactureProcessDate);		  
+
+          });
+        });
+		$("#registerAdmin").click(function(){
+		   $.get("http://18.188.241.128:3000/registerAdmin", function(data){
+				console.log(data);
+				if(data==='success'){
+					alert("Assigned the admin user to the fabric client");
+				}
+          });
+		});
+		$("#registerUser").click(function(){
+		   $.get("http://18.188.241.128:3000/registerUser", function(data){
+				console.log(data);
+				if(data==='success'){
+					alert("User1 was successfully registered and enrolled and is ready to intreact with the fabric network");
+				}
+          });
+		});
+      });
+    </script>
+  </head>
+<body>
+	<div class="container">
+		  <div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6">
+			  <a href="#" id="registerAdmin" class="btn btn-lg btn-primary btn-block">Register Admin</a>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6">
+			  <a href="#" id="registerUser" class="btn btn-lg btn-info btn-block">Register User</a>
+			</div>
+		  </div>
+		  <br/><br/>
+	</div>
+	<div class="container" id="querySection">
+		<div class="row">
+		  <form role="form">
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="ConsumerId">OrderId</label>
+				<input type="text" class="form-control" id="OrderId" placeholder="">
+			</div>
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="Status">Status</label>
+				<input type="text" class="form-control" id="Status" placeholder="">
+			</div>
+			<div class="clearfix"></div>
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="ConsumerId">ConsumerId</label>
+				<input type="text" class="form-control" id="consumerId" placeholder="">
+			</div>
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="ShippingPrice">ShippingPrice</label>
+				<input type="text" class="form-control" id="ShippingPrice" placeholder="">
+			</div>
+			<div class="clearfix"></div>
+			 <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="OrderPrice">OrderPrice</label>
+				<input type="text" class="form-control" id="OrderPrice" placeholder="">
+			</div>
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="ConsumerId">RawFoodProcessDate</label>
+				<input type="text" class="form-control" id="RawFoodProcessDate" placeholder="">
+			</div>
+			<div class="clearfix"></div>
+			 <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="ManufactureId">ManufactureId</label>
+				<input type="text" class="form-control" id="ManufactureId" placeholder="">
+			</div>
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="ManufactureProcessDate">ManufactureProcessDate</label>
+				<input type="text" class="form-control" id="ManufactureProcessDate" placeholder="">
+			</div>		
+			<div class="clearfix"></div>
+			 <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="WholesalerId">WholesalerId</label>
+				<input type="text" class="form-control" id="WholesalerId" placeholder="">
+			</div>
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="WholesaleProcessDate">WholesaleProcessDate</label>
+				<input type="text" class="form-control" id="WholesaleProcessDate" placeholder="">
+			</div>	
+			<div class="clearfix"></div>
+			 <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="LogisticsId">LogisticsId</label>
+				<input type="text" class="form-control" id="LogisticsId" placeholder="">
+			</div>
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="ShippingProcessDate">ShippingProcessDate</label>
+				<input type="text" class="form-control" id="ShippingProcessDate" placeholder="">
+			</div>	
+			<div class="clearfix"></div>
+			 <div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="RetailerId">RetailerId</label>
+				<input type="text" class="form-control" id="RetailerId" placeholder="">
+			</div>
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="RetailProcessDate">RetailProcessDate</label>
+				<input type="text" class="form-control" id="RetailProcessDate" placeholder="">
+			</div>	
+			<div class="clearfix"></div>
+			<div class="form-group col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<label for="DeliveryDate">DeliveryDate</label>
+				<input type="text" class="form-control" id="DeliveryDate" placeholder="">
+			</div>		
+			<div class="clearfix"></div>
+			<div class="col-xs-10 col-sm-4 col-md-4 col-lg-4">
+				<button type="submit" id="chainCodeQuery" class="btn btn-success">Query Chaincode</button>
+			</div>
+		</form>
+		<div class="clearfix"></div>
+		<br /><br />
+		</div>
+	</div>
+</body>
+</html>

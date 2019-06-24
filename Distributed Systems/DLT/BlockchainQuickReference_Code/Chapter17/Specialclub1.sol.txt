@@ -1,0 +1,32 @@
+pragma solidity ^0.4.23;
+
+contract SpecialClub {
+    // Centralized owner of this application
+    address public owner;
+    // we set members to true if they are a member, false otherwise.
+    mapping(address => bool) public members;
+    mapping(address => bool) internal requests; 
+    
+    constructor() public {
+        owner = msg.sender;
+    }
+    
+    modifier onlyOwner() {
+      require(msg.sender == owner);
+      _;
+    }
+    
+    function approveMembership(address _address) onlyOwner external {
+        members[_address] = true;
+        requests[_address] = false;
+        emit GrantedMembership(_address);
+    } 
+    
+    function requestOwnership() external {
+        requests[msg.sender] = true;
+        emit RequestToJoin(msg.sender);
+    }
+    
+    event RequestToJoin(address _address);
+    event GrantedMembership(address _address);
+}

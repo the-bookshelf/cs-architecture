@@ -1,0 +1,6 @@
+usr/local/bin/readercoin-qt usr/bin
+share/pixmaps/readercoin32.xpm usr/share/pixmaps
+share/pixmaps/readercoin16.xpm usr/share/pixmaps
+share/pixmaps/readercoin128.png usr/share/pixmaps
+debian/readercoin-qt.desktop usr/share/applications
+debian/readercoin-qt.protocol usr/share/kde4/services/

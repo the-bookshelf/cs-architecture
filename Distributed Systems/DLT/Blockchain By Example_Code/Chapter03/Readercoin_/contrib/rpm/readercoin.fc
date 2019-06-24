@@ -1,0 +1,8 @@
+/usr/bin/readercoin-cli		--	gen_context(system_u:object_r:readercoin_exec_t,s0)
+/usr/sbin/readercoind		--	gen_context(system_u:object_r:readercoin_exec_t,s0)
+/usr/lib(64)?/readercoin/readercoind		--	gen_context(system_u:object_r:readercoin_exec_t,s0)
+
+/etc/readercoin(/.*)?		gen_context(system_u:object_r:readercoin_conf_t,s0)
+/var/lib/readercoin(/.*)?		gen_context(system_u:object_r:readercoin_var_lib_t,s0)
+
+(/var)?/run/readercoind(/.*)?   gen_context(system_u:object_r:readercoin_var_run_t,s0)

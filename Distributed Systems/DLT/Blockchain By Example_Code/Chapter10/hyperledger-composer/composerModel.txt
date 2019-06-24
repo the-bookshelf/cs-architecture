@@ -1,0 +1,20 @@
+namespace org.fsn.testnetwork
+asset Food identified by orderId {
+  o String orderId
+  o String status
+  o String date
+  o String orderPrice
+  o String shippingPrice
+  o String foodId
+  --> Consumer consumer
+
+}
+participant Consumer identified by consumerId {
+  o String consumerId
+  o String firstName
+  o String lastName
+}
+transaction Order {
+  --> Food food
+  --> Consumer newConsumer
+}

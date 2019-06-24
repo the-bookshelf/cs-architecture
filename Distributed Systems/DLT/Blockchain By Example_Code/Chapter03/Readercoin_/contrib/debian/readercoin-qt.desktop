@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Readercoin Core
+Comment=Connect to the Readercoin P2P Network
+Comment[de]=Verbinde mit dem Readercoin peer-to-peer Netzwerk
+Comment[fr]=Readercoin, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Readercoin, eşten eşe kriptografik sanal para birimi
+Exec=readercoin-qt %u
+Terminal=false
+Type=Application
+Icon=readercoin128
+MimeType=x-scheme-handler/readercoin;
+Categories=Office;Finance;

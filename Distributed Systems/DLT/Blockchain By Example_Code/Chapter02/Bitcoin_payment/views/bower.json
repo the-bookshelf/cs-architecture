@@ -1,0 +1,10 @@
+{
+  "name": "By example",
+  "version": "0.0.1",
+  "license": "MIT",
+  "dependencies": {
+    "bitcore-lib": "^0.15.0",
+    "bitcore-payment-protocol": "1.2.2"
+  }
+}
+

@@ -1,0 +1,21 @@
+
+Debian
+====================
+This directory contains files used to package readercoind/readercoin-qt
+for Debian-based Linux systems. If you compile readercoind/readercoin-qt yourself, there are some useful files here.
+
+## readercoin: URI support ##
+
+
+readercoin-qt.desktop  (Gnome / Open Desktop)
+To install:
+
+	sudo desktop-file-install readercoin-qt.desktop
+	sudo update-desktop-database
+
+If you build yourself, you will either need to modify the paths in
+the .desktop file or copy or symlink your readercoin-qt binary to `/usr/bin`
+and the `../../share/pixmaps/readercoin128.png` to `/usr/share/pixmaps`
+
+readercoin-qt.protocol (KDE)
+

@@ -1,0 +1,58 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: coordinator
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: coordinator
+    spec:
+      containers:
+      - name: qnm
+        image: narayanprusty/qnm
+        args: ['node setupFromConfig.js']
+        workingDir: /workspace/QuorumNetworkManager
+        imagePullPolicy: Always
+        env: 
+        - name: IP
+          value: 0.0.0.0
+        ports:
+        - containerPort: 50000
+        - containerPort: 50010
+        - containerPort: 50020
+        - containerPort: 20000
+        - containerPort: 20010
+        - containerPort: 20020
+        - containerPort: 40000
+        - containerPort: 30303
+        - containerPort: 9000
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: coordinator
+spec:
+  ports:
+    - name: remote-communication-node
+      port: 50000
+    - name: communication-node-rpc
+      port: 50010
+    - name: communication-node-ws-rpc
+      port: 50020
+    - name: geth-node
+      port: 20000
+    - name: geth-node-rpc
+      port: 20010
+    - name: geth-node-ws-rpc
+      port: 20020
+    - name: raft-http
+      port: 40000
+    - name: devp2p
+      port: 30303
+    - name: constellation
+      port: 9000
+  selector:
+      app: coordinator
+  type: NodePort

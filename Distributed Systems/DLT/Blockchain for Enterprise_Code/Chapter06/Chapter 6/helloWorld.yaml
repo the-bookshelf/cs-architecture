@@ -1,0 +1,31 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: hello-world
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: nodejs-hello-world
+        image: narayanprusty/nodejs-hello-world
+        command: [ 'node', 'app.js']
+        workingDir: /usr/src/app
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8888
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: hello-world
+spec:
+  ports:
+    - name: api
+      port: 8888
+  selector:
+      app: hello-world
+  type: NodePort

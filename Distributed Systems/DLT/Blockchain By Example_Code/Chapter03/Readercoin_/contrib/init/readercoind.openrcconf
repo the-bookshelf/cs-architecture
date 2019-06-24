@@ -1,0 +1,33 @@
+# /etc/conf.d/readercoind: config file for /etc/init.d/readercoind
+
+# Config file location
+#READERCOIND_CONFIGFILE="/etc/readercoin/readercoin.conf"
+
+# What directory to write pidfile to?  (created and owned by $READERCOIND_USER)
+#READERCOIND_PIDDIR="/var/run/readercoind"
+
+# What filename to give the pidfile
+#READERCOIND_PIDFILE="${READERCOIND_PIDDIR}/readercoind.pid"
+
+# Where to write readercoind data (be mindful that the blockchain is large)
+#READERCOIND_DATADIR="/var/lib/readercoind"
+
+# User and group to own readercoind process
+#READERCOIND_USER="readercoin"
+#READERCOIND_GROUP="readercoin"
+
+# Path to readercoind executable
+#READERCOIND_BIN="/usr/bin/readercoind"
+
+# Nice value to run readercoind under
+#READERCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#READERCOIND_OPTS=""
+
+# The timeout in seconds OpenRC will wait for readercoind to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+READERCOIND_SIGTERM_TIMEOUT=60

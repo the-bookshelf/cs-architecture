@@ -1,0 +1,20 @@
+pragma solidity ^0.4.23;
+import "./ERC20.sol";
+
+contract Crowdsale {
+
+ // The token being sold, conforms to ERC20 standard, assumed to have 18 decimals.
+ ERC20 public token;
+
+ // 1 tokens per Eth, we are assuming the token has 18 decimals like Eth does.
+ uint256 public rate = 1; 
+
+ constructor(ERC20 _token) public {
+    token = _token;
+ }
+ 
+ function () external payable {
+    uint256 _tokenAmount = msg.value * rate;
+    token.transfer(msg.sender, _tokenAmount);
+ }
+}

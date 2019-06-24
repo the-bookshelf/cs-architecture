@@ -1,0 +1,59 @@
+ 
+	input[type=submit],.check {
+   	color: #fff;
+    padding: 0 30px;
+    margin: 0 5px 5px 0;
+    background-color: #ff5400;
+    display: inline-block;
+    vertical-align: top;
+    line-height: 44px;
+    height: 44px;
+    border-radius: 3px;
+    font-size: 18px;
+    text-decoration: none;
+    border: 1px;
+        margin-left: 20%;
+}
+ .main_div{
+    width: 450px;
+    height: 250px;
+     background-color: white;
+padding: 20px;    margin-right: auto;
+    margin-left: auto;
+ } 
+ .details{
+ 
+ }
+ .overview{
+border : solid 1px orange; 
+border-style: dashed;
+    border-radius: 25px;
+     padding: 20px;
+}
+    
+  .pay_div{
+    width: 450px;
+    height: 530px;
+     background-color: white;
+    padding: 20px;    margin-right: auto;
+    margin-left: auto;
+ }
+ #qrcode{
+   margin-left: 30%;
+}
+body {
+    padding-top: 15px;
+    background-color: #eee;
+	  font-size: 14px;
+    font-family: Open Sans,sans-serif;
+	word-break: break-all;
+}
+.item {
+    margin-right: auto;
+    margin-left: auto;
+    float: right;
+}
+h1 {
+    font-family: "futura-pt",arial,sans-serif;
+    font-weight: 400;
+}

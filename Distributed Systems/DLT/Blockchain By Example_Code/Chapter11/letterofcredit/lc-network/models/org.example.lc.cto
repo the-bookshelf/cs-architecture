@@ -1,0 +1,171 @@
+/*
+ * Blockchain by example - LC
+ * Author; Brian Wu
+ */
+
+namespace org.example.lc
+
+// ENUMS
+enum LCStatus {
+  o CONTRACT
+  o REQUEST_LC
+  o ISSUE_LC
+  o ADVICE_LC
+  o DELIVER_PRODUCT
+  o PRESENT_DOCUMENT
+  o DELIVERY_DOCUMENT
+  o BUYER_DEBIT_PAYMENT
+  o BANKS_PAYMENT_TRANSFER
+  o SELL_RECEIVED_PAYMENT
+  o CLOSED
+}
+
+enum ParticipantType {
+  o BUYER
+  o SELLER
+  o ISSUING_BANK
+  o CONFIRMING_BANK
+}
+// ASSETS
+asset LetterOfCredit identified by letterId {
+  o String letterId
+  --> User buyer
+  --> User seller
+  --> Bank issuingBank
+  --> Bank confirmingBank
+  o Rule[] rules
+  o ProductDetails productDetails
+  o String [] evidence
+  o LCStatus status
+  o Integer step
+  o String closeReason optional
+}
+
+// PARTICIPANTS
+//BANK
+participant Bank identified by bankID {
+  o String bankID
+  o String name
+  o ParticipantType type
+}
+//USER
+participant User identified by userId {
+  o String userId
+  o String name
+  o String lastName optional
+  o String companyName
+  o ParticipantType type
+  --> Bank bank
+}
+// CONCEPTS
+concept ProductDetails {
+  o String productType
+  o Integer quantity
+  o Double pricePerUnit
+}
+concept Rule {
+  o String ruleId
+  o String ruleText
+}
+
+// TRANSACTIONS + EVENTS
+transaction InitialApplication {
+  o String letterId
+  --> User buyer
+  --> User seller
+  --> Bank issuingBank
+  --> Bank confirmingBank
+  o Rule[] rules
+  o ProductDetails productDetails
+}
+
+event InitialApplicationEvent {
+  --> LetterOfCredit lc
+}
+
+transaction BuyerRequestLC {
+  --> LetterOfCredit lc
+}
+
+event BuyerRequestLCEvent {
+  --> LetterOfCredit lc
+}
+
+
+transaction IssuingBankApproveLC {
+  --> LetterOfCredit lc
+}
+
+event IssuingBankApproveLCEvent {
+  --> LetterOfCredit lc
+}
+
+transaction ConfirmingBankAdviceLC {
+  --> LetterOfCredit lc
+}
+
+event ConfirmingBankAdviceLCEvent {
+  --> LetterOfCredit lc
+}
+
+transaction SellerDeliverGoods {
+  --> LetterOfCredit lc
+  o String evidence
+}
+
+event SellerDeliverGoodsEvent {
+  --> LetterOfCredit lc
+}
+
+transaction SellerPresentDocument {
+  --> LetterOfCredit lc
+  o String evidence
+}
+event SellerPresentDocumentEvent {
+  --> LetterOfCredit lc
+}
+
+transaction ConfirmingBankDeliverDocument {
+  --> LetterOfCredit lc
+  o String evidence
+}
+event ConfirmingBankDeliverDocumentEvent {
+  --> LetterOfCredit lc
+}
+
+transaction BuyerDepositPayment {
+  --> LetterOfCredit lc
+}
+
+event BuyerDepositPaymentEvent {
+  --> LetterOfCredit lc
+}
+
+transaction BanksTransferPayment {
+  --> LetterOfCredit lc
+}
+
+event BanksTransferPaymentEvent {
+  --> LetterOfCredit lc
+}
+transaction SellerReceivedPayment {
+  --> LetterOfCredit lc
+}
+
+event SellerReceivedPaymentEvent {
+  --> LetterOfCredit lc
+}
+
+transaction Close {
+  --> LetterOfCredit lc
+  o String closeReason
+}
+
+event CloseEvent {
+  --> LetterOfCredit lc
+  o String closeReason
+}
+
+// TRANSACTIONS FOR SETUP
+transaction CreateDemoParticipants {
+}

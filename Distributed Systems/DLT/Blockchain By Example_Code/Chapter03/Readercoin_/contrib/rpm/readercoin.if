@@ -1,0 +1,157 @@
+
+## <summary>policy for readercoin</summary>
+
+
+########################################
+## <summary>
+##	Transition to readercoin.
+## </summary>
+## <param name="domain">
+## <summary>
+##	Domain allowed to transition.
+## </summary>
+## </param>
+#
+interface(`readercoin_domtrans',`
+	gen_require(`
+		type readercoin_t, readercoin_exec_t;
+	')
+
+	corecmd_search_bin($1)
+	domtrans_pattern($1, readercoin_exec_t, readercoin_t)
+')
+
+
+########################################
+## <summary>
+##	Execute readercoin server in the readercoin domain.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`readercoin_initrc_domtrans',`
+	gen_require(`
+		type readercoin_initrc_exec_t;
+	')
+
+	init_labeled_script_domtrans($1, readercoin_initrc_exec_t)
+')
+
+
+########################################
+## <summary>
+##	Search readercoin lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`readercoin_search_lib',`
+	gen_require(`
+		type readercoin_var_lib_t;
+	')
+
+	allow $1 readercoin_var_lib_t:dir search_dir_perms;
+	files_search_var_lib($1)
+')
+
+########################################
+## <summary>
+##	Read readercoin lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`readercoin_read_lib_files',`
+	gen_require(`
+		type readercoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	read_files_pattern($1, readercoin_var_lib_t, readercoin_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage readercoin lib files.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`readercoin_manage_lib_files',`
+	gen_require(`
+		type readercoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_files_pattern($1, readercoin_var_lib_t, readercoin_var_lib_t)
+')
+
+########################################
+## <summary>
+##	Manage readercoin lib directories.
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+#
+interface(`readercoin_manage_lib_dirs',`
+	gen_require(`
+		type readercoin_var_lib_t;
+	')
+
+	files_search_var_lib($1)
+	manage_dirs_pattern($1, readercoin_var_lib_t, readercoin_var_lib_t)
+')
+
+
+########################################
+## <summary>
+##	All of the rules required to administrate
+##	a readercoin environment
+## </summary>
+## <param name="domain">
+##	<summary>
+##	Domain allowed access.
+##	</summary>
+## </param>
+## <param name="role">
+##	<summary>
+##	Role allowed access.
+##	</summary>
+## </param>
+## <rolecap/>
+#
+interface(`readercoin_admin',`
+	gen_require(`
+		type readercoin_t;
+		type readercoin_initrc_exec_t;
+		type readercoin_var_lib_t;
+	')
+
+	allow $1 readercoin_t:process { ptrace signal_perms };
+	ps_process_pattern($1, readercoin_t)
+
+	readercoin_initrc_domtrans($1)
+	domain_system_change_exemption($1)
+	role_transition $2 readercoin_initrc_exec_t system_r;
+	allow $2 system_r;
+
+	files_search_var_lib($1)
+	admin_pattern($1, readercoin_var_lib_t)
+
+')
+
