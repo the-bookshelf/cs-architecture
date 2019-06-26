@@ -1,0 +1,12 @@
+{
+  "protocol": "tcp",
+  "port": 3000,
+  "mode": "binary",
+  "stubs": [{
+    "responses": [{
+      "proxy": {
+        "to": "tcp://localhost:3333"
+      }
+    }]
+  }]
+}

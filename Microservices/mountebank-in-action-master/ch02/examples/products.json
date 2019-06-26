@@ -1,0 +1,29 @@
+{
+  "port": 3000,
+  "protocol": "http",
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "statusCode": 200,
+        "headers": {"Content-Type": "application/json"},
+        "body": {
+          "products": [
+            {
+              "id": "2599b7f4",
+              "name": "The Midas Dogbowl",
+              "description": "Pure gold"
+            },
+            {
+              "id": "e1977c9e",
+              "name": "Fishtank Amore",
+              "description": "Show your fish some love"
+            }
+          ],
+          "_links": {
+            "next": "/products?page=2&itemsPerPage=2"
+          }
+        }
+      }
+    }]
+  }]
+}

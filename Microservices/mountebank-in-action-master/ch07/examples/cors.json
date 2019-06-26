@@ -1,0 +1,24 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [{
+      "equals": { "method": "OPTIONS" }
+    }],
+    "responses": [{
+      "is": {
+        "headers": {
+          "Access-Control-Allow-Origin": "${ORIGIN}",
+          "Access-Control-Allow-Methods": "PUT, DELETE"
+        }
+      },
+      "_behaviors": {
+        "copy": [{
+          "from": { "headers": "Origin" },
+          "into": "${ORIGIN}",
+          "using": { "method": "regex", "selector": ".+" }
+        }]
+      }
+    }]
+  }]
+}

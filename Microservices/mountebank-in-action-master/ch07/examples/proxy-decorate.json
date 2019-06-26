@@ -1,0 +1,32 @@
+{
+  "imposters": [
+    {
+      "port": 8080,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [{
+            "is": {
+              "headers": { "x-rate-limit-remaining": 50 }
+            }
+          }]
+        }
+      ]
+    },
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [{
+            "proxy": {
+              "to": "http://localhost:8080",
+              "mode": "proxyOnce",
+              "addDecorateBehavior": "<%- stringify(filename, 'proxy-decorate.js') %>"
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}

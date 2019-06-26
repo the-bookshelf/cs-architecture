@@ -1,0 +1,26 @@
+{
+  "name": "petstore",
+  "version": "0.1.0",
+  "author": "Brandon Byars <brandon.byars@gmail.com>",
+  "description": "Petstore to show off mountebank",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "grunt"
+  },
+  "dependencies": {
+    "ejs": "~2.5.1",
+    "errorhandler": "^1.0.0",
+    "express": "~4.15.3",
+    "q": "~1.5.0",
+    "request": "^2.79.0",
+    "request-promise-any": "^1.0.3"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-mocha-test": "~0.13.2",
+    "grunt-mountebank": "1.0.5",
+    "mocha": "~3.4.1"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [{
+      "matches": { "body": "^Can I see your.*driver's license.*\\?$" }
+    }],
+    "responses": [{
+      "is": { "body": "Catch me if you can!" }
+    }]
+  }]
+}

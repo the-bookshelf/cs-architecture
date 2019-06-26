@@ -1,0 +1,35 @@
+{
+  "imposters": [
+    {
+      "port": 8080,
+      "protocol": "http",
+      "stubs": [{
+        "responses": [
+          { "is": { "body": "First response" } },
+          { "is": { "body": "Second response" } }
+        ]
+      }]
+    },
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [{
+            "proxy": {
+              "to": "http://localhost:8080",
+              "predicateGenerators": [
+                {
+                  "matches": { "body": true },
+                  "jsonpath": {
+                    "selector": "$.identities[(@.length-1)].career"
+                  }
+                }
+              ]
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}

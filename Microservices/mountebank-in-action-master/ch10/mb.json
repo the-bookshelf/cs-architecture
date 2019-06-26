@@ -1,0 +1,180 @@
+{
+  "imposters": [
+    {
+      "protocol": "http",
+      "port": 3000,
+      "stubs": [
+        {
+          "predicates": [
+            {
+              "deepEquals": {
+                "body": "{\"apikey\":\"ThavaS7e\",\"objectType\":\"animals\",\"objectAction\":\"publicSearch\",\"search\":{\"resultStart\":\"0\",\"resultLimit\":\"10\",\"resultSort\":\"animalLocationDistance\",\"resultOrder\":\"asc\",\"filters\":[{\"fieldName\":\"animalStatus\",\"operation\":\"equals\",\"criteria\":\"Available\"},{\"fieldName\":\"animalLocationDistance\",\"operation\":\"radius\",\"criteria\":\"20\"},{\"fieldName\":\"animalLocation\",\"operation\":\"equals\",\"criteria\":\"75228\"}],\"filterProcessing\":\"1\",\"fields\":[\"animalID\",\"animalLocationCoordinates\",\"animalSpecies\",\"animalThumbnailUrl\"]}}"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Date": "Wed, 27 Dec 2017 19:35:10 GMT",
+                  "Server": "Apache/2.4.6 (CentOS)",
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "POST, GET, DELETE, PATCH, PUT, OPTIONS",
+                  "Access-Control-Allow-Headers": "Authorization, Origin, Content-Type, Accept",
+                  "Access-Control-Expose-Headers": "Authorization",
+                  "Cache-Control": "no-cache, must-revalidate",
+                  "Expires": "Mon, 26 Jul 1997 05:00:00 GMT",
+                  "Content-Length": 2349,
+                  "Connection": "close",
+                  "Content-Type": "application/json"
+                },
+                "body": "{\"status\":\"ok\",\"messages\":{\"generalMessages\":[],\"recordMessages\":[]},\"foundRows\":1716,\"data\":{\"12364945\":{\"animalID\":\"12364945\",\"animalLocationCoordinates\":\"32.8199,-96.6351\",\"animalSpecies\":\"Cat\",\"animalThumbnailUrl\":\"\",\"animalLocationDistance\":4},\"12356910\":{\"animalID\":\"12356910\",\"animalLocationCoordinates\":\"32.8199,-96.6351\",\"animalSpecies\":\"Cat\",\"animalThumbnailUrl\":\"\",\"animalLocationDistance\":4},\"12403684\":{\"animalID\":\"12403684\",\"animalLocationCoordinates\":\"32.8199,-96.6351\",\"animalSpecies\":\"Cat\",\"animalThumbnailUrl\":\"\",\"animalLocationDistance\":4},\"12403685\":{\"animalID\":\"12403685\",\"animalLocationCoordinates\":\"32.8199,-96.6351\",\"animalSpecies\":\"Cat\",\"animalThumbnailUrl\":\"\",\"animalLocationDistance\":4},\"11201811\":{\"animalID\":\"11201811\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/11201\\/11201811\\/43816817_100x78.jpg\",\"animalLocationDistance\":6},\"10677691\":{\"animalID\":\"10677691\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/10677\\/10677691\\/39692633_100x113.jpg\",\"animalLocationDistance\":6},\"10684095\":{\"animalID\":\"10684095\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/10684\\/10684095\\/49408363_100x106.jpg\",\"animalLocationDistance\":6},\"11013636\":{\"animalID\":\"11013636\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/11013\\/11013636\\/42001088_100x74.jpg\",\"animalLocationDistance\":6},\"11013663\":{\"animalID\":\"11013663\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/11013\\/11013663\\/42001232_100x80.jpg\",\"animalLocationDistance\":6},\"10837552\":{\"animalID\":\"10837552\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/5497\\/pictures\\/animals\\/10837\\/10837552\\/48282798_100x66.jpg\",\"animalLocationDistance\":6}}}",
+                "_mode": "text"
+              },
+              "_behaviors": {
+                "wait": 901
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "deepEquals": {
+                "body": "{\"apikey\":\"ThavaS7e\",\"objectType\":\"animals\",\"objectAction\":\"publicSearch\",\"search\":{\"resultStart\":\"0\",\"resultLimit\":\"10\",\"resultSort\":\"animalLocationDistance\",\"resultOrder\":\"asc\",\"filters\":[{\"fieldName\":\"animalStatus\",\"operation\":\"equals\",\"criteria\":\"Available\"},{\"fieldName\":\"animalLocationDistance\",\"operation\":\"radius\",\"criteria\":\"50\"},{\"fieldName\":\"animalLocation\",\"operation\":\"equals\",\"criteria\":\"75228\"}],\"filterProcessing\":\"1\",\"fields\":[\"animalID\",\"animalLocationCoordinates\",\"animalSpecies\",\"animalThumbnailUrl\"]}}"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Date": "Wed, 27 Dec 2017 19:35:13 GMT",
+                  "Server": "Apache/2.4.6 (CentOS)",
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "POST, GET, DELETE, PATCH, PUT, OPTIONS",
+                  "Access-Control-Allow-Headers": "Authorization, Origin, Content-Type, Accept",
+                  "Access-Control-Expose-Headers": "Authorization",
+                  "Cache-Control": "no-cache, must-revalidate",
+                  "Expires": "Mon, 26 Jul 1997 05:00:00 GMT",
+                  "Content-Length": 2349,
+                  "Connection": "close",
+                  "Content-Type": "application/json"
+                },
+                "body": "{\"status\":\"ok\",\"messages\":{\"generalMessages\":[],\"recordMessages\":[]},\"foundRows\":2770,\"data\":{\"12364945\":{\"animalID\":\"12364945\",\"animalLocationCoordinates\":\"32.8199,-96.6351\",\"animalSpecies\":\"Cat\",\"animalThumbnailUrl\":\"\",\"animalLocationDistance\":4},\"12356910\":{\"animalID\":\"12356910\",\"animalLocationCoordinates\":\"32.8199,-96.6351\",\"animalSpecies\":\"Cat\",\"animalThumbnailUrl\":\"\",\"animalLocationDistance\":4},\"12403684\":{\"animalID\":\"12403684\",\"animalLocationCoordinates\":\"32.8199,-96.6351\",\"animalSpecies\":\"Cat\",\"animalThumbnailUrl\":\"\",\"animalLocationDistance\":4},\"12403685\":{\"animalID\":\"12403685\",\"animalLocationCoordinates\":\"32.8199,-96.6351\",\"animalSpecies\":\"Cat\",\"animalThumbnailUrl\":\"\",\"animalLocationDistance\":4},\"11201811\":{\"animalID\":\"11201811\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/11201\\/11201811\\/43816817_100x78.jpg\",\"animalLocationDistance\":6},\"10677691\":{\"animalID\":\"10677691\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/10677\\/10677691\\/39692633_100x113.jpg\",\"animalLocationDistance\":6},\"10684095\":{\"animalID\":\"10684095\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/10684\\/10684095\\/49408363_100x106.jpg\",\"animalLocationDistance\":6},\"11013636\":{\"animalID\":\"11013636\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/11013\\/11013636\\/42001088_100x74.jpg\",\"animalLocationDistance\":6},\"11013663\":{\"animalID\":\"11013663\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/11013\\/11013663\\/42001232_100x80.jpg\",\"animalLocationDistance\":6},\"10837552\":{\"animalID\":\"10837552\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/5497\\/pictures\\/animals\\/10837\\/10837552\\/48282798_100x66.jpg\",\"animalLocationDistance\":6}}}",
+                "_mode": "text"
+              },
+              "_behaviors": {
+                "wait": 622
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "deepEquals": {
+                "body": "{\"apikey\":\"ThavaS7e\",\"objectType\":\"animals\",\"objectAction\":\"publicSearch\",\"search\":{\"filters\":[{\"fieldName\":\"animalID\",\"operation\":\"equals\",\"criteria\":\"10677691\"}],\"filterProcessing\":\"1\",\"fields\":[\"animalAgeString\",\"animalBirthdate\",\"animalLocation\",\"animalLocationCoordinates\",\"animalLocationDistance\",\"animalLocationCitystate\",\"animalSpecies\",\"animalThumbnailUrl\"]}}"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Date": "Wed, 27 Dec 2017 19:35:18 GMT",
+                  "Server": "Apache/2.4.6 (CentOS)",
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "POST, GET, DELETE, PATCH, PUT, OPTIONS",
+                  "Access-Control-Allow-Headers": "Authorization, Origin, Content-Type, Accept",
+                  "Access-Control-Expose-Headers": "Authorization",
+                  "Cache-Control": "no-cache, must-revalidate",
+                  "Expires": "Mon, 26 Jul 1997 05:00:00 GMT",
+                  "Content-Length": 472,
+                  "Connection": "close",
+                  "Content-Type": "application/json"
+                },
+                "body": "{\"status\":\"ok\",\"messages\":{\"generalMessages\":[],\"recordMessages\":[]},\"foundRows\":1,\"data\":{\"10677691\":{\"animalAgeString\":\"\",\"animalBirthdate\":\"\",\"animalLocation\":\"75214\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalLocationDistance\":\"\",\"animalLocationCitystate\":\"Dallas, TX\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/2121\\/pictures\\/animals\\/10677\\/10677691\\/39692633_100x113.jpg\",\"animalID\":\"10677691\"}}}",
+                "_mode": "text"
+              },
+              "_behaviors": {
+                "wait": 294
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "deepEquals": {
+                "body": "{\"apikey\":\"ThavaS7e\",\"objectType\":\"animals\",\"objectAction\":\"publicSearch\",\"search\":{\"filters\":[{\"fieldName\":\"animalID\",\"operation\":\"equals\",\"criteria\":\"10837552\"}],\"filterProcessing\":\"1\",\"fields\":[\"animalAgeString\",\"animalBirthdate\",\"animalLocation\",\"animalLocationCoordinates\",\"animalLocationDistance\",\"animalLocationCitystate\",\"animalSpecies\",\"animalThumbnailUrl\"]}}"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Date": "Wed, 27 Dec 2017 19:35:20 GMT",
+                  "Server": "Apache/2.4.6 (CentOS)",
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "POST, GET, DELETE, PATCH, PUT, OPTIONS",
+                  "Access-Control-Allow-Headers": "Authorization, Origin, Content-Type, Accept",
+                  "Access-Control-Expose-Headers": "Authorization",
+                  "Cache-Control": "no-cache, must-revalidate",
+                  "Expires": "Mon, 26 Jul 1997 05:00:00 GMT",
+                  "Content-Length": 491,
+                  "Connection": "close",
+                  "Content-Type": "application/json"
+                },
+                "body": "{\"status\":\"ok\",\"messages\":{\"generalMessages\":[],\"recordMessages\":[]},\"foundRows\":1,\"data\":{\"10837552\":{\"animalAgeString\":\"3 Years \",\"animalBirthdate\":\"11\\/30\\/2014\",\"animalLocation\":\"75214\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalLocationDistance\":\"\",\"animalLocationCitystate\":\"Dallas, TX\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/5497\\/pictures\\/animals\\/10837\\/10837552\\/48282798_100x66.jpg\",\"animalID\":\"10837552\"}}}",
+                "_mode": "text"
+              },
+              "_behaviors": {
+                "wait": 308
+              }
+            }
+          ]
+        },
+        {
+          "predicates": [
+            {
+              "deepEquals": {
+                "body": "{\"apikey\":\"ThavaS7e\",\"objectType\":\"animals\",\"objectAction\":\"publicSearch\",\"search\":{\"filters\":[{\"fieldName\":\"animalID\",\"operation\":\"equals\",\"criteria\":\"11618347\"}],\"filterProcessing\":\"1\",\"fields\":[\"animalAgeString\",\"animalBirthdate\",\"animalLocation\",\"animalLocationCoordinates\",\"animalLocationDistance\",\"animalLocationCitystate\",\"animalSpecies\",\"animalThumbnailUrl\"]}}"
+              }
+            }
+          ],
+          "responses": [
+            {
+              "is": {
+                "statusCode": 200,
+                "headers": {
+                  "Date": "Wed, 27 Dec 2017 19:35:23 GMT",
+                  "Server": "Apache/2.4.6 (CentOS)",
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "POST, GET, DELETE, PATCH, PUT, OPTIONS",
+                  "Access-Control-Allow-Headers": "Authorization, Origin, Content-Type, Accept",
+                  "Access-Control-Expose-Headers": "Authorization",
+                  "Cache-Control": "no-cache, must-revalidate",
+                  "Expires": "Mon, 26 Jul 1997 05:00:00 GMT",
+                  "Content-Length": 498,
+                  "Connection": "close",
+                  "Content-Type": "application/json"
+                },
+                "body": "{\"status\":\"ok\",\"messages\":{\"generalMessages\":[],\"recordMessages\":[]},\"foundRows\":1,\"data\":{\"11618347\":{\"animalAgeString\":\"4 Years 3 Months \",\"animalBirthdate\":\"9\\/1\\/2013\",\"animalLocation\":\"75214\",\"animalLocationCoordinates\":\"32.8265,-96.7453\",\"animalLocationDistance\":\"\",\"animalLocationCitystate\":\"Dallas, TX\",\"animalSpecies\":\"Dog\",\"animalThumbnailUrl\":\"https:\\/\\/s3.amazonaws.com\\/filestore.rescuegroups.org\\/5497\\/pictures\\/animals\\/11618\\/11618347\\/50843510_100x92.jpg\",\"animalID\":\"11618347\"}}}",
+                "_mode": "text"
+              },
+              "_behaviors": {
+                "wait": 318
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [{
+      "or": [
+        { "equals": { "path": "/identities/123" } },
+        {
+          "and": [
+            { "equals": { "path": "/identities" } },
+            {
+              "and": [
+                { "contains": { "query": { "q": "Frank" } } },
+                { "contains": { "query": { "q": "Williams" } } },
+                { "not": { "exists": { "query": { "page": true } } } }
+              ]
+            }
+          ]
+        }
+      ]
+    }],
+    "responses": [{
+      "is": {
+        "body": { "identities": [{
+          "name": "Frank Williams",
+          "career": "Doctor",
+          "location": "Georgia"
+        }] }
+      }
+    }]
+  }]
+}

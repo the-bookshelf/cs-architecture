@@ -1,0 +1,27 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "body": {
+          "id": "$ID[1]",
+          "name": "Brandon Byars",
+          "description": "Devilishly handsome",
+          "height": "Lots of it",
+          "relationshipStatus": "Available upon request"
+        }
+      },
+      "_behaviors": {
+        "copy": [{
+          "from": "path",
+          "into": "$ID",
+          "using": {
+            "method": "regex",
+            "selector": "accounts/(\\w+)"
+          }
+        }]
+      }
+    }]
+  }]
+}

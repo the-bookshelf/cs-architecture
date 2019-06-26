@@ -1,0 +1,20 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [
+    {
+      "predicates": [{
+        "matches": { "path": "/identities/\\d+" }
+      }],
+      "responses": [{
+        "is": {
+          "body": {
+            "name": "Frank Williams",
+            "career": "Doctor",
+            "location": "Georgia"
+          }
+        }
+      }]
+    }
+  ]
+}

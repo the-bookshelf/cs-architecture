@@ -1,0 +1,22 @@
+{
+  "name": "github-client",
+  "version": "0.1.0",
+  "author": "Brandon Byars <brandon.byars@gmail.com>",
+  "description": "github client to show using OAuth",
+  "scripts": {
+    "start": "node src/githubClient.js",
+    "test": "node_modules/mocha/bin/_mocha test/**/*.js"
+  },
+  "dependencies": {
+    "ejs": "~2.5.1",
+    "errorhandler": "^1.0.0",
+    "express": "~4.15.3",
+    "q": "~1.5.0",
+    "request": "^2.79.0",
+    "request-promise": "^4.2.1",
+    "request-promise-any": "^1.0.3"
+  },
+  "devDependencies": {
+    "mocha": "~3.4.1"
+  }
+}

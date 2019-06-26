@@ -1,0 +1,20 @@
+{
+  "protocol": "tcp",
+  "port": 3000,
+  "mode": "binary",
+  "stubs": [
+    {
+      "predicates": [{
+        "contains": { "data": "SRE=" }
+      }],
+      "responses": [{
+        "is": { "data": "TWF0Y2hlZAo=" }
+      }]
+    },
+    {
+      "responses": [{
+        "is": { "data": "RGlkIG5vdCBtYXRjaAo=" }
+      }]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [
+    {
+      "predicates": [{
+        "contains": { "body": "Which route are you flying?" }
+      }],
+      "responses": [{
+        "is": { "body": "Miami to Rio" }
+      }]
+    },
+    {
+      "predicates": [{
+        "contains": { "body": "Where did you get your degree?" }
+      }],
+      "responses": [{
+        "is": { "body": "Harvard Medical School" }
+      }]
+    },
+    {
+      "responses": [{
+        "is": { "body": "I'll have to get back to you" }
+      }]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [
+      { "equals": { "method": "PUT" } },
+      { "equals": { "path": "/identities" } },
+      {
+        "or": [
+          {
+            "xpath": {
+              "ns": {
+                "i": "https://www.abagnale-spec.com/identity",
+                "n": "https://www.abagnale-spec.com/name"
+              },
+              "selector": "//i:identity/n:name"
+            },
+            "exists": { "body": true }
+          },
+          {
+            "xpath": {
+              "selector": "//i:identity[@n:name]",
+              "ns": {
+                "i": "https://www.abagnale-spec.com/identity",
+                "n": "https://www.abagnale-spec.com/name"
+              }
+            },
+            "exists": { "body": false }
+          }
+        ]
+      }
+    ],
+    "responses": [{ "is": { "statusCode": 400 } }]
+  }]
+}

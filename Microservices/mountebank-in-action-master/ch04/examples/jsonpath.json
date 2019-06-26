@@ -1,0 +1,25 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [
+      {
+        "equals": { "method": "PUT" }
+      },
+      {
+        "equals": { "path": "/identities" }
+      },
+      {
+        "jsonpath": {
+          "selector": "$.identities[(@.length-1)].career"
+        },
+        "equals": { "body": "Teacher" }
+      }
+    ],
+    "responses": [{
+      "is": {
+        "statusCode": 400
+      }
+    }]
+  }]
+}

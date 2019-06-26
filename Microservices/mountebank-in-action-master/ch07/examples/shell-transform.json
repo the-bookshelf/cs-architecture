@@ -1,0 +1,24 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "headers": {
+          "x-rate-limit-remaining": 50
+        },
+        "body": {
+          "givenName": "Stubby",
+          "surname": "McStubble",
+          "birthDate": "1980-01-01"
+        }
+      },
+      "_behaviors": {
+        "shellTransform": [
+          "ruby scripts/applyRateLimit.rb",
+          "ruby scripts/addTimestamp.rb"
+        ]
+      }
+    }]
+  }]
+}

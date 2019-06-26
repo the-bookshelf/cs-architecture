@@ -1,0 +1,7 @@
+<accounts xmlns="https://www.example.com/accounts">
+  <id>$ID</id>
+  <name>Brandon Byars</name>
+  <description>Devilishly handsome</description>
+  <height>Lots of it</height>
+  <relationshipStatus>Available upon request</relationshipStatus>
+</accounts>

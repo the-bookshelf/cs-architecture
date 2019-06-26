@@ -1,0 +1,21 @@
+{
+  "imposters": [
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [{
+            "proxy": {
+              "to": "https://api.rescuegroups.org/",
+              "predicateGenerators": [
+                { "matches": { "body": true } }
+              ],
+              "addWaitBehavior": true
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}

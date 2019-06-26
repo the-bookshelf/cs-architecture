@@ -1,0 +1,10 @@
+{
+  "protocol": "tcp",
+  "port": 3000,
+  "mode": "binary",
+  "stubs": [{
+    "responses": [{
+      "is": { "data": "SGVsbG8sIHdvcmxkIQ==" }
+    }]
+  }]
+}

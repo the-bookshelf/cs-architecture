@@ -1,0 +1,34 @@
+{
+  "imposters": [
+    {
+      "port": 8080,
+      "protocol": "http",
+      "stubs": [{
+        "responses": [
+          { "is": { "body": "Proxy response" } }
+        ]
+      }]
+    },
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [{
+            "proxy": {
+              "to": "http://localhost:8080",
+              "predicateGenerators": [
+                {
+                  "matches": { "body": true },
+                  "xpath": {
+                    "selector": "//identity[@career='Teacher']/location"
+                  }
+                }
+              ]
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}

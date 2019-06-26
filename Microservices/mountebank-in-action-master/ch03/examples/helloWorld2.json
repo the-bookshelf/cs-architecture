@@ -1,0 +1,11 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "body": "Hello, world!"
+      }
+    }]
+  }]
+}

@@ -1,0 +1,38 @@
+{
+  "imposters": [
+    {
+      "port": 8080,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [
+            { "is": { "body": "First message" } },
+            { "is": { "body": "Second message" } }
+          ]
+        }
+      ]
+    },
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "predicates": [{ "contains": { "body": "5555555555555555" } }],
+          "responses": [{ "is": { "statusCode": 400 } }]
+        },
+        {
+          "predicates": [{ "contains": { "body": "4444444444444444" } }],
+          "responses": [{ "is": { "statusCode": 500 } }]
+        },
+        {
+          "responses": [{
+            "proxy": {
+              "to": "http://localhost:8080",
+              "mode": "proxyAlways"
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}

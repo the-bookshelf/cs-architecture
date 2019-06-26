@@ -1,0 +1,20 @@
+{
+  "imposters": [
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [
+            {
+              "is": { "body": "Hello, world!" },
+              "_behaviors": {
+                "wait": "<%- stringify(filename, 'randomLatency.js') %>"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

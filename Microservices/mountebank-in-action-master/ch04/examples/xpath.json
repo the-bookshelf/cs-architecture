@@ -1,0 +1,17 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [
+      { "equals": { "method": "PUT" } },
+      { "equals": { "path": "/identities" } },
+      {
+        "xpath": {
+          "selector": "//identity[@career='Teacher']/location"
+        },
+        "equals": { "body": "Utah" }
+      }
+    ],
+    "responses": [{ "is": { "statusCode": 400 } }]
+  }]
+}

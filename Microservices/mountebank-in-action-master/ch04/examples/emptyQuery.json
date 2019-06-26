@@ -1,0 +1,30 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [
+    {
+      "predicates": [{
+        "deepEquals": { "query": {} }
+      }],
+      "responses": [{
+        "is": {
+          "body": {
+            "identities": [
+              {
+                "name": "Frank Williams",
+                "career": "Doctor",
+                "location": "Georgia"
+              },
+              {
+                "name": "Frank Adams",
+                "career": "Brigham Young Teacher",
+                "location": "Utah"
+              }
+            ]
+
+          }
+        }
+      }]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [{
+      "equals": { "body": "Can I see your?" },
+      "except": " driver's license"
+    }],
+    "responses": [{
+      "is": { "body": "Catch me if you can!" }
+    }]
+  }]
+}

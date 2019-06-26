@@ -1,0 +1,31 @@
+{
+  "protocol": "https",
+  "port": 3001,
+  "cert": "<%- stringify(filename, 'ssl/cert.pem'); %>",
+  "key": "<%- stringify(filename, 'ssl/key.pem'); %>",
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "statusCode": 200,
+        "headers": { "Content-Type": "application/json" },
+        "body": {
+          "products": [
+            {
+              "id": "2599b7f4",
+              "name": "The Midas Dogbowl",
+              "description": "Pure gold"
+            },
+            {
+              "id": "e1977c9e",
+              "name": "Fishtank Amore",
+              "description": "Show your fish some love"
+            }
+          ]
+        }
+      }
+    }],
+    "predicates": [{
+      "equals": { "path": "/products" }
+    }]
+  }]
+}

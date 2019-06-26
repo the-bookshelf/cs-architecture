@@ -1,0 +1,12 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [{
+      "matches": { "body": "Which route .* fly.*\\?" }
+    }],
+    "responses": [{
+      "is": { "body": "Miami to Rio" }
+    }]
+  }]
+}

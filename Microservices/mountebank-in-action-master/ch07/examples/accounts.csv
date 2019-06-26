@@ -1,0 +1,5 @@
+name,statusCode,errorCode,errorMessage
+Tom Larsen,500,serverError,An unexpected error occurred on the server
+Kip Brady,400,duplicateEntry,User already exists
+Mary Reynolds,400,tooYoung,You must be 18 years old to register
+Harry Smith,503,serverBusy,Server currently unavailable

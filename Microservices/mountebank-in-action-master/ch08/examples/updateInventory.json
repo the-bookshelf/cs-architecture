@@ -1,0 +1,12 @@
+{
+  "protocol": "tcp",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [{
+      "startsWith": { "data": "updateInventory" }
+    }],
+    "responses": [{
+      "is": { "data": "0\n1343" }
+    }]
+  }]
+}

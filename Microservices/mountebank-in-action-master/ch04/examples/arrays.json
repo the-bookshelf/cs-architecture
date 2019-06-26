@@ -1,0 +1,22 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [
+    {
+      "predicates": [{
+        "deepEquals": { "query": { "q": ["Frank", "Georgia"] } }
+      }],
+      "responses": [{
+        "is": { "body": "deepEquals matched" }
+      }]
+    },
+    {
+      "predicates": [{
+        "equals": { "query": { "q": ["Frank", "Georgia"] } }
+      }],
+      "responses": [{
+        "is": { "body": "equals matched" }
+      }]
+    }
+  ]
+}

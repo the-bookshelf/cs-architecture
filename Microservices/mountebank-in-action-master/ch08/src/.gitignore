@@ -1,0 +1,4 @@
+packages/
+*.vshost*
+*.pdb
+*.log

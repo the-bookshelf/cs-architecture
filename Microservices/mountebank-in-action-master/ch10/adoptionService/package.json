@@ -1,0 +1,15 @@
+{
+  "name": "perftest-example",
+  "version": "0.1.0",
+  "author": "Brandon Byars <brandon.byars@gmail.com>",
+  "description": "Example app to show service virtualization for performance testing",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "~4.15.3",
+    "q": "~1.5.0",
+    "request-json": "^0.6.2"
+  }
+}

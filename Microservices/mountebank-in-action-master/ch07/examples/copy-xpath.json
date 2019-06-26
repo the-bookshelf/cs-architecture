@@ -1,0 +1,22 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "body": "<%- stringify(filename, 'copy-response.xml') %>"
+      },
+      "_behaviors": {
+        "copy": [{
+          "from": "body",
+          "into": "$ID",
+          "using": {
+            "method": "xpath",
+            "selector": "//a:account[2]/@id",
+            "ns": { "a": "https://www.example.com/accounts" }
+          }
+        }]
+      }
+    }]
+  }]
+}

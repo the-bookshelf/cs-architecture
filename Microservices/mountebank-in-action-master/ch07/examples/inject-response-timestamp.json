@@ -1,0 +1,9 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "inject": "function () { return { body: { timestamp: new Date(), givenName: 'Stubby', surname: 'McStubble', birthDate: '1980-01-01' } } }"
+    }]
+  }]
+}

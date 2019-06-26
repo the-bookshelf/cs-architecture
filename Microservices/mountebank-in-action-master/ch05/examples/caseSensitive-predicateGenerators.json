@@ -1,0 +1,57 @@
+{
+  "comment": "This example uses the copy behavior, which we haven't looked at yet but will next chapter",
+  "comment2": "I'm using it here to echo back the input parameters",
+  "imposters": [
+    {
+      "port": 8080,
+      "protocol": "http",
+      "stubs": [{
+        "responses": [{
+          "is": { "body": "You called $PATH with a body of $BODY" },
+          "_behaviors": {
+            "copy": [
+              {
+                "from": "path",
+                "into": "$PATH",
+                "using": {
+                  "method": "regex",
+                  "selector": ".*"
+                }
+              },
+              {
+                "from": "body",
+                "into": "$BODY",
+                "using": {
+                  "method": "regex",
+                  "selector": ".*"
+                }
+              }
+            ]
+          }
+        }]
+      }]
+    },
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [{
+            "proxy": {
+              "to": "http://localhost:8080",
+              "predicateGenerators": [
+                {
+                  "matches": { "path": true },
+                  "caseSensitive": true
+                },
+                {
+                  "matches": { "body": true }
+                }
+              ]
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}

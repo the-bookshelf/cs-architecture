@@ -1,0 +1,30 @@
+{
+  "imposters": [
+    {
+      "port": 8080,
+      "protocol": "https",
+      "mutualAuth": true,
+      "stubs": [
+        {
+          "responses": [
+            { "is": { "body": "Hello, world!" } }
+          ]
+        }
+      ]
+    },
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [{
+            "proxy": {
+              "to": "https://localhost:8080",
+              "mode": "proxyAlways"
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}

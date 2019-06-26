@@ -1,0 +1,18 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "body": {
+          "givenName": "Stubby",
+          "surname": "McStubble",
+          "birthDate": "1980-01-01"
+        }
+      },
+      "_behaviors": {
+        "decorate": "function (request, response, logger) { response.body.timestamp = new Date(); }"
+      }
+    }]
+  }]
+}

@@ -1,0 +1,42 @@
+{
+  "imposters": [
+    {
+      "port": 8080,
+      "protocol": "http",
+      "stubs": [
+        {
+          "predicates": [{
+            "equals": { "path": "/inventory/2599b7f4" }
+          }],
+          "responses": [
+            { "is": { "body": "54" } },
+            { "is": { "body": "21" } },
+            { "is": { "body": "0" } }
+          ]
+        },
+        {
+          "responses": [
+            { "is": { "body": "100" } }
+          ]
+        }
+      ]
+    },
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [{
+            "proxy": {
+              "to": "http://localhost:8080",
+              "mode": "proxyAlways",
+              "predicateGenerators": [{
+                "matches": { "path": true }
+              }]
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}

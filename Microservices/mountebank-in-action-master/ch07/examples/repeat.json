@@ -1,0 +1,15 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [
+      {
+        "is": { "body": "9999" },
+        "_behaviors": { "repeat": 2 }
+      },
+      {
+        "is": { "body": "0" }
+      }
+    ]
+  }]
+}

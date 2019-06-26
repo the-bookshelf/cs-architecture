@@ -1,0 +1,28 @@
+{
+  "imposters": [
+    {
+      "protocol": "tcp",
+      "port": 3333,
+      "stubs": [{
+        "predicates": [{
+          "startsWith": { "data": "updateInventory" }
+        }],
+        "responses": [
+          { "is": { "data": "0\n1343" } },
+          { "is": { "data": "0\n0" } }
+        ]
+      }]
+    },
+    {
+      "protocol": "tcp",
+      "port": 3000,
+      "stubs": [{
+        "responses": [{
+          "proxy": {
+            "to": "tcp://localhost:3333"
+          }
+        }]
+      }]
+    }
+  ]
+}

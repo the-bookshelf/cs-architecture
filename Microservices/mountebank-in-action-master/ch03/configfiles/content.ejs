@@ -1,0 +1,34 @@
+{
+  "protocol": "https",
+  "port": 3002,
+  "cert": "<%- stringify(filename, 'ssl/cert.pem'); %>",
+  "key": "<%- stringify(filename, 'ssl/key.pem'); %>",
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "statusCode": 200,
+        "headers": { "Content-Type": "application/json" },
+        "body": {
+          "content": [
+            {
+              "id": "2599b7f4",
+              "copy": "Treat your dog like the king he is",
+              "image": "/content/c5b221e2"
+            },
+            {
+              "id": "e1977c9e",
+              "copy": "Love your fish; they'll love you back",
+              "image": "/content/a0fad9fb"
+            }
+          ]
+        }
+      }
+    }],
+    "predicates": [{
+      "equals": {
+        "path": "/content",
+        "query": { "ids": "2599b7f4,e1977c9e" }
+      }
+    }]
+  }]
+}

@@ -1,0 +1,13 @@
+.DS_Store
+~*
+mb.log
+mb.pid
+mb1.log
+node_modules/
+.idea/
+npm-debug.log
+*.iml
+obj/
+bin/
+.vs/
+

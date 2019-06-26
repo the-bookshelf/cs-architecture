@@ -1,0 +1,14 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [{
+      "exists": {
+        "headers": { "Authorization": false }
+      }
+    }],
+    "responses": [{
+      "is": { "statusCode": 401 }
+    }]
+  }]
+}

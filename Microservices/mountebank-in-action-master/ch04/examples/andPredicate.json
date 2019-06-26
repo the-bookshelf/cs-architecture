@@ -1,0 +1,15 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "predicates": [{
+      "and": [
+        { "startsWith": { "body": "Frank" } },
+        { "endsWith": { "body": "Abagnale" } }
+      ]
+    }],
+    "responses": [{
+      "is": { "body": "Hello, Frank Abagnale!" }
+    }]
+  }]
+}

@@ -1,0 +1,35 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "statusCode": "${row}['statusCode']",
+        "body": {
+          "errors": [{
+            "code": "${row}['errorCode']",
+            "message": "${row}['errorMessage']"
+          }]
+        }
+      },
+      "_behaviors": {
+        "lookup": [{
+          "key": {
+            "from": "body",
+            "using": {
+              "method": "jsonpath",
+              "selector": "$..name"
+            }
+          },
+          "fromDataSource": {
+            "csv": {
+              "path": "examples/accounts.csv",
+              "keyColumn": "name"
+            }
+          },
+          "into": "${row}"
+        }]
+      }
+    }]
+  }]
+}

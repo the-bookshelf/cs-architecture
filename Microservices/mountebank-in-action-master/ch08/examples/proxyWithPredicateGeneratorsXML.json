@@ -1,0 +1,42 @@
+{
+  "imposters": [
+    {
+      "protocol": "tcp",
+      "port": 3333,
+      "stubs": [
+        {
+          "predicates": [{ "contains": { "data": "5131" } }],
+          "responses": [{ "is": { "data": "<response><status>SUCCESS</status><inventory>1343</inventory></response>" } }]
+        },
+        {
+          "responses": [{ "is": { "data": "<response><status>SUCCESS</status><inventory>0</inventory></response>" } }]
+        }
+      ]
+    },
+    {
+      "protocol": "tcp",
+      "port": 3000,
+      "stubs": [{
+        "responses": [{
+          "proxy": {
+            "to": "tcp://localhost:3333",
+            "predicateGenerators": [
+              {
+                "matches": { "data": true },
+                "xpath": {
+                  "selector": "//functionName"
+                }
+              },
+              {
+                "matches": { "data": true },
+                "xpath": {
+                  "selector": "//parameter[@name='productId']/@value"
+                }
+              }
+            ]
+          }
+        }]
+      }]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "port": 3000,
+  "protocol": "https",
+  "cert": "<%- stringify(filename, 'ssl/cert.pem') %>",
+  "key": "<%- stringify(filename, 'ssl/key.pem') %>",
+  "stubs": [
+    {
+      "responses": [
+        { "is": { "body": "54" } },
+        { "is": { "body": "21" } },
+        { "is": { "body": "0" } }
+      ]
+    }
+  ]
+}

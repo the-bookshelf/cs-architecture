@@ -1,0 +1,16 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "is": {
+        "body": {
+          "name": "Sleepy"
+        }
+      },
+      "_behaviors": {
+        "wait": 3000
+      }
+    }]
+  }]
+}

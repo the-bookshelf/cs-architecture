@@ -1,0 +1,9 @@
+{
+  "protocol": "http",
+  "port": 3000,
+  "stubs": [{
+    "responses": [{
+      "inject": "<%- stringify(filename, 'roadie-response.js') %>"
+    }]
+  }]
+}

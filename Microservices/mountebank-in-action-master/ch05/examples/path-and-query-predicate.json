@@ -1,0 +1,49 @@
+{
+  "imposters": [
+    {
+      "port": 8080,
+      "protocol": "http",
+      "stubs": [
+        {
+          "predicates": [{
+            "equals": {
+              "path": "/inventory/2599b7f4",
+              "query": { "page": "1" }
+            }
+          }],
+          "responses": [{ "is": { "body": "page 1" } }]
+        },
+        {
+          "predicates": [{
+            "equals": { "path": "/inventory/2599b7f4" }
+          }],
+          "responses": [{ "is": { "body": "not page 1" } }]
+        },
+        {
+          "responses": [
+            { "is": { "body": "different product id" } }
+          ]
+        }
+      ]
+    },
+    {
+      "port": 3000,
+      "protocol": "http",
+      "stubs": [
+        {
+          "responses": [{
+            "proxy": {
+              "to": "http://localhost:8080",
+              "predicateGenerators": [{
+                "matches": {
+                  "path": true,
+                  "query": { "page": true }
+                }
+              }]
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}

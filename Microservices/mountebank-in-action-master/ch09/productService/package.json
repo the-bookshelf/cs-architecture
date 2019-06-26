@@ -1,0 +1,13 @@
+{
+  "name": "petstore-products",
+  "version": "0.1.0",
+  "author": "Brandon Byars <brandon.byars@gmail.com>",
+  "description": "Products service for mountebank PetStore example",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "express": "~4.15.3"
+  }
+}
